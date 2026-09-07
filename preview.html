@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en" class="dark scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Karthick K | Java Full Stack Developer — Standalone Live Preview</title>
+  <meta name="description" content="Karthick K - Java Full Stack Developer from Tamil Nadu, India. Building scalable applications from database to interface." />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            dark: {
+              950: '#030712',
+              900: '#050814',
+              850: '#090d1f',
+              800: '#0d1329',
+              700: '#151d3b',
+              600: '#1f2a4f',
+            },
+            cyber: {
+              cyan: '#00f2fe',
+              blue: '#38bdf8',
+              purple: '#a855f7',
+              violet: '#8b5cf6',
+              emerald: '#10b981',
+              amber: '#f59e0b',
+            }
+          },
+          fontFamily: {
+            sans: ['Inter', 'system-ui', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace'],
+            display: ['Space Grotesk', 'sans-serif'],
+          },
+          boxShadow: {
+            'glow-cyan': '0 0 25px -5px rgba(0, 242, 254, 0.4)',
+            'glow-blue': '0 0 25px -5px rgba(56, 189, 248, 0.4)',
+            'glow-purple': '0 0 25px -5px rgba(168, 85, 247, 0.4)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- React 18, ReactDOM & Babel for in-browser standalone execution -->
+  <script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+  <!-- Three.js CDN -->
+  <script src="https://unpkg.com/three@0.160.0/build/three.min.js"></script>
+  <!-- Canvas Confetti CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+  <style>
+    body {
+      background-color: #030712;
+      color: #f8fafc;
+      overflow-x: hidden;
+    }
+    .text-gradient-cyber {
+      background: linear-gradient(135deg, #00f2fe 0%, #38bdf8 50%, #818cf8 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+    .glass-panel {
+      background: rgba(13, 19, 41, 0.75);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .glass-card {
+      background: rgba(9, 13, 31, 0.8);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(255, 255, 255, 0.07);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .glass-card:hover {
+      background: rgba(17, 24, 52, 0.9);
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.8), 0 0 20px -3px rgba(56, 189, 248, 0.25);
+    }
+    .cyber-grid {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: #050814; }
+    ::-webkit-scrollbar-thumb { background: #1f2a4f; border-radius: 4px; }
+    ::-webkit-scrollbar-thumb:hover { background: #38bdf8; }
+  </style>
+</head>
+<body class="selection:bg-cyber-cyan selection:text-dark-950">
+  <div id="root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useRef } = React;
+
+    // --- PORTFOLIO DATA ---
+    const DATA = {
+      name: "Karthick K",
+      title: "Java Full Stack Developer",
+      location: "Tamil Nadu, India",
+      headline: "Building scalable applications from database to interface.",
+      subtext: "Java Full Stack Developer focused on building reliable backend systems, REST APIs, interactive React applications, and practical full-stack solutions.",
+      approach: "From database design to REST APIs and frontend integration, I enjoy building complete application flows.",
+      email: "kkarthikkarthick31@gmail.com",
+      github: "https://github.com/kkarthikarthick31",
+      linkedin: "https://linkedin.com/in/kkarthi2004",
+      statusBadge: "Available for entry-level Full Stack Developer opportunities",
+      coreStack: ["Java", "Spring Boot", "ReactJS", "MySQL", "REST APIs", "Blockchain"],
+      stats: [
+        { value: "6 Months", label: "Internship Experience", sub: "End-to-end software development" },
+        { value: "2 Major", label: "Full Stack Projects", sub: "Enterprise inventory & blockchain" },
+        { value: "Top SQL 50", label: "LeetCode Proficiency", sub: "Complex queries, window funcs & CTEs" },
+        { value: "80%", label: "MCA Degree", sub: "Master of Computer Applications" },
+        { value: "Full Stack", label: "Java Specialization", sub: "Spring Boot + ReactJS architecture" },
+      ],
+      skills: {
+        languages: [
+          { name: "Java", level: "Core & OOP", desc: "Multithreading, Collections, JVM fundamentals" },
+          { name: "JavaScript", level: "ES6+", desc: "Async/await, DOM manipulation, modern JS standards" },
+          { name: "SQL", level: "Advanced Querying", desc: "Complex joins, indexing, ranking, CTEs, optimization" },
+        ],
+        backend: [
+          { name: "Spring Boot", level: "Micro-framework", desc: "Rapid microservices, dependency injection, auto-config" },
+          { name: "Spring MVC", level: "Web Architecture", desc: "Request mappings, controllers, view resolvers" },
+          { name: "Spring Security", level: "Security", desc: "Authentication, authorization, filters, CORS/CSRF" },
+          { name: "Spring Data JPA", level: "ORM / Persistence", desc: "Repository abstraction, JPQL queries, pagination" },
+          { name: "Hibernate", level: "ORM Mapping", desc: "Entity mappings, session management, 1st/2nd level cache" },
+          { name: "REST APIs", level: "API Design", desc: "CRUD contracts, HTTP status codes, JSON payload processing" },
+          { name: "JWT", level: "Token Auth", desc: "Stateless session authentication, token signing, verification" },
+        ],
+        frontend: [
+          { name: "ReactJS", level: "Component SPA", desc: "Hooks, state management, virtual DOM, component lifecycles" },
+          { name: "HTML", level: "Semantic HTML5", desc: "Accessible markup, semantic layout, SEO readiness" },
+          { name: "CSS", level: "Modern CSS3", desc: "Flexbox, Grid, keyframes, transitions, media queries" },
+        ],
+        databases: [
+          { name: "MySQL", level: "Relational DBMS", desc: "Schema design, foreign keys, triggers, stored procedures" },
+          { name: "PostgreSQL", level: "Advanced RDBMS", desc: "ACID compliance, relational integrity, complex queries" },
+          { name: "JDBC", level: "Database Connector", desc: "Direct database connectivity, statement pooling, batching" },
+        ],
+        coreConcepts: [
+          { name: "OOP", level: "Core Paradigm", desc: "Encapsulation, Inheritance, Polymorphism, Abstraction" },
+          { name: "Data Structures", level: "CS Fundamentals", desc: "Arrays, LinkedLists, Trees, HashMaps, Stacks, Queues" },
+          { name: "Collections", level: "Java Framework", desc: "List, Set, Map hierarchies, Iterators, Comparators" },
+          { name: "MVC Architecture", level: "System Design", desc: "Separation of concerns across Model, View, and Controller" },
+          { name: "Exception Handling", level: "Reliability", desc: "Robust try-catch hierarchies, custom exceptions, global handlers" },
+          { name: "Authentication", level: "Identity", desc: "Identity verification, credential validation" },
+          { name: "Authorization", level: "Access Control", desc: "Role-based access control (RBAC), permission matrices" },
+        ],
+        tools: [
+          { name: "Git", level: "VCS", desc: "Version control, branching workflows, merging, commits" },
+          { name: "GitHub", level: "Hosting", desc: "Code hosting, pull requests, project tracking" },
+          { name: "Postman", level: "API Testing", desc: "API endpoint testing, test suites, environment variables" },
+          { name: "Maven", level: "Build Tool", desc: "Java build automation, dependency resolution, packaging" },
+          { name: "VS Code", level: "IDE", desc: "Code editor, debugging extensions, React development" },
+          { name: "Eclipse", level: "IDE", desc: "Java IDE, enterprise debugging, server runtimes" },
+        ],
+      },
+      experience: [
+        {
+          id: 1,
+          role: "Software Development Intern",
+          company: "Top Tech Developers",
+          location: "Chennai, India",
+          period: "January 2026 – April 2026",
+          duration: "4 Months",
+          description: "Built core modules of a blockchain-based Farmer-to-Consumer Food Traceability System to guarantee supply chain integrity and product provenance.",
+          responsibilities: [
+            "Built core modules of a blockchain-based Farmer-to-Consumer Food Traceability System.",
+            "Engineered backend business logic using Java and MySQL persistence.",
+            "Designed and structured supplier management workflows from scratch.",
+            "Implemented rigorous buyer verification workflows ensuring authentic product handover.",
+            "Modeled, optimized, and maintained relational MySQL schemas for transaction states.",
+            "Collaborated effectively in a cross-functional team across sprint lifecycles.",
+          ],
+          stack: ["Java", "Blockchain", "MySQL", "Traceability Architecture", "Git"],
+        },
+        {
+          id: 2,
+          role: "Java Full Stack Development Intern",
+          company: "Crud Academy",
+          location: "Karur, India",
+          period: "April 2025 – May 2025",
+          duration: "2 Months",
+          description: "Developed enterprise CRUD services, created RESTful endpoints, and bridged backend systems with interactive client applications.",
+          responsibilities: [
+            "Implemented robust REST APIs using Spring Boot and Java.",
+            "Developed end-to-end CRUD operations with strict error handling and status code protocols.",
+            "Integrated Spring Boot APIs with MySQL databases using Hibernate / Spring Data JPA.",
+            "Conducted extensive API endpoint testing using Postman to validate payloads and security headers.",
+            "Actively contributed to Agile sprint planning, daily standups, development, and unit testing.",
+          ],
+          stack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Postman", "Agile"],
+        },
+      ],
+      achievements: [
+        {
+          title: "LeetCode Top SQL 50",
+          org: "LeetCode",
+          badge: "SQL 50 Master",
+          desc: "Solved and mastered full Top SQL 50 problem set covering Joins, Subqueries, Window Functions, Aggregation, Ranking, and CTEs."
+        },
+        {
+          title: "Programming in Java",
+          org: "NPTEL",
+          badge: "Score: 71%",
+          desc: "Completed the certified course in Java programming from the National Programme on Technology Enhanced Learning (NPTEL) with 71%."
+        },
+        {
+          title: "Managing Director Recognition",
+          org: "Top Tech Developers, Chennai",
+          badge: "MD Honors",
+          desc: "Recognized by the Managing Director at Top Tech Developers for internship performance, proactive problem-solving, and dedication."
+        },
+        {
+          title: "Java Full Stack Project Completion",
+          org: "Top Tech Developers",
+          badge: "Delivery Milestone",
+          desc: "Engineered and delivered core functional modules of the blockchain-based agricultural traceability platform on schedule."
+        },
+      ]
+    };
+
+    // --- HERO 3D SCENE COMPONENT ---
+    function Hero3D() {
+      const containerRef = useRef(null);
+
+      useEffect(() => {
+        const container = containerRef.current;
+        if (!container) return;
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(45, width / height, 0.1, 1000);
+        camera.position.z = 7;
+
+        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+        renderer.setSize(width, height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        container.appendChild(renderer.domElement);
+
+        const group = new THREE.Group();
+        scene.add(group);
+
+        // Core Octahedron
+        const coreGeo = new THREE.OctahedronGeometry(1.3, 0);
+        const coreMat = new THREE.MeshStandardMaterial({ color: 0x0a2540, roughness: 0.2, metalness: 0.8 });
+        const core = new THREE.Mesh(coreGeo, coreMat);
+        group.add(core);
+
+        // Wireframe
+        const wireGeo = new THREE.OctahedronGeometry(1.35, 1);
+        const wireMat = new THREE.MeshBasicMaterial({ color: 0x00f2fe, wireframe: true, transparent: true, opacity: 0.6 });
+        const wire = new THREE.Mesh(wireGeo, wireMat);
+        group.add(wire);
+
+        // Gimbal Rings
+        const ring1Geo = new THREE.TorusGeometry(2.1, 0.03, 16, 100);
+        const ring1Mat = new THREE.MeshBasicMaterial({ color: 0x00f2fe });
+        const ring1 = new THREE.Mesh(ring1Geo, ring1Mat);
+        ring1.rotation.x = Math.PI / 3;
+        group.add(ring1);
+
+        const ring2Geo = new THREE.TorusGeometry(2.4, 0.03, 16, 100);
+        const ring2Mat = new THREE.MeshBasicMaterial({ color: 0xa855f7 });
+        const ring2 = new THREE.Mesh(ring2Geo, ring2Mat);
+        ring2.rotation.y = Math.PI / 4;
+        group.add(ring2);
+
+        // Floating Cubes
+        const cubes = [];
+        const cubeGeo = new THREE.BoxGeometry(0.12, 0.12, 0.12);
+        const cubeMat = new THREE.MeshBasicMaterial({ color: 0x38bdf8 });
+        for (let i = 0; i < 16; i++) {
+          const c = new THREE.Mesh(cubeGeo, cubeMat);
+          const theta = Math.random() * Math.PI * 2;
+          const phi = Math.acos(Math.random() * 2 - 1);
+          const r = 2.2 + Math.random() * 0.5;
+          c.position.set(r * Math.sin(phi) * Math.cos(theta), r * Math.sin(phi) * Math.sin(theta), r * Math.cos(phi));
+          group.add(c);
+          cubes.push(c);
+        }
+
+        // Lights
+        scene.add(new THREE.AmbientLight(0xffffff, 0.6));
+        const point1 = new THREE.PointLight(0x00f2fe, 3, 20);
+        point1.position.set(4, 3, 4);
+        scene.add(point1);
+
+        let reqId;
+        const animate = () => {
+          reqId = requestAnimationFrame(animate);
+          group.rotation.y += 0.005;
+          group.rotation.x += 0.002;
+          ring1.rotation.z += 0.008;
+          ring2.rotation.z -= 0.006;
+          renderer.render(scene, camera);
+        };
+        animate();
+
+        return () => {
+          cancelAnimationFrame(reqId);
+          if (container && renderer.domElement) container.removeChild(renderer.domElement);
+          renderer.dispose();
+        };
+      }, []);
+
+      return <div ref={containerRef} className="w-full h-80 sm:h-96 lg:h-[460px]" />;
+    }
+
+    // --- SUPPLY CHAIN 3D VISUALIZER ---
+    function SupplyChainVisualizer() {
+      const stages = [
+        { name: "Farmer", role: "Origin Harvest", desc: "Batch generation & produce logging with timestamp" },
+        { name: "Supplier", role: "Logistics Hub", desc: "Cold-chain verification & transit checkpoints" },
+        { name: "Verification", role: "Consensus Audit", desc: "Cryptographic hash validation & buyer signature" },
+        { name: "Product", role: "Packaged Good", desc: "Tamper-evident tokenized batch serialization" },
+        { name: "Consumer", role: "Provenance Scan", desc: "End-to-end authentic farm-to-table verification" }
+      ];
+      const [activeStage, setActiveStage] = useState(0);
+
+      return (
+        <div className="bg-dark-900/90 rounded-2xl border border-slate-800 p-6 backdrop-blur-md">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-4">
+            <div className="flex items-center gap-2">
+              <span className="w-2.5 h-2.5 rounded-full bg-cyber-emerald animate-pulse"></span>
+              <span className="text-xs font-mono font-bold text-cyber-emerald uppercase">3D Supply Chain Traceability Architecture</span>
+            </div>
+            <span className="text-xs font-mono text-slate-400">Farmer → Supplier → Verification → Product → Consumer</span>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-5 gap-2 my-4">
+            {stages.map((stg, i) => (
+              <button
+                key={stg.name}
+                onClick={() => setActiveStage(i)}
+                className={`p-3 rounded-xl text-left border transition-all ${
+                  activeStage === i
+                    ? 'bg-slate-800 border-cyber-cyan text-white shadow-glow-blue'
+                    : 'bg-dark-850 border-slate-800 text-slate-400 hover:text-white'
+                }`}
+              >
+                <div className="text-[10px] font-mono text-slate-500">STAGE 0{i + 1}</div>
+                <div className="text-xs font-bold text-cyber-cyan">{stg.name}</div>
+                <div className="text-[11px] truncate mt-0.5">{stg.role}</div>
+              </button>
+            ))}
+          </div>
+
+          <div className="p-4 rounded-xl bg-cyber-cyan/5 border border-cyber-cyan/20 text-xs text-slate-300 flex items-center justify-between">
+            <span>
+              <strong className="text-cyber-cyan font-mono mr-1">[{stages[activeStage].name}]:</strong>
+              {stages[activeStage].desc}
+            </span>
+            <span className="hidden sm:inline-block px-2.5 py-0.5 rounded bg-dark-950 text-cyber-cyan font-mono text-[10px] border border-cyber-cyan/30">
+              CRYPTOGRAPHICALLY SECURED
+            </span>
+          </div>
+        </div>
+      );
+    }
+
+    // --- MAIN APP COMPONENT ---
+    function App() {
+      const [skillCategory, setSkillCategory] = useState('languages');
+      const [emailStatus, setEmailStatus] = useState('');
+
+      const scrollTo = (id) => {
+        const el = document.getElementById(id);
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      };
+
+      const handleContactSubmit = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const name = form.name.value;
+        const email = form.email.value;
+        const msg = form.message.value;
+        const subj = encodeURIComponent(form.subject.value || `Portfolio Inquiry from ${name}`);
+        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\nMessage:\n${msg}`);
+        
+        confetti({ particleCount: 70, spread: 80, origin: { y: 0.6 } });
+        window.location.href = `mailto:${DATA.email}?subject=${subj}&body=${body}`;
+        setEmailStatus('Message prepared! Launching your email client...');
+        setTimeout(() => setEmailStatus(''), 7000);
+      };
+
+      return (
+        <div className="min-h-screen bg-dark-950 text-slate-100 relative">
+          
+          {/* Top Fixed Navbar */}
+          <header className="fixed top-0 left-0 right-0 z-40 bg-dark-950/80 backdrop-blur-xl border-b border-slate-800/80 py-4">
+            <div className="max-w-7xl mx-auto px-4 sm:px-6 flex items-center justify-between">
+              <a href="#hero" className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-purple p-0.5 shadow-glow-cyan">
+                  <div className="w-full h-full bg-dark-950 rounded-[6px] flex items-center justify-center font-extrabold text-white text-xs font-display">
+                    K
+                  </div>
+                </div>
+                <div className="flex flex-col">
+                  <span className="font-display font-extrabold text-white tracking-wider text-sm">KARTHICK K</span>
+                  <span className="text-[10px] font-mono text-slate-400">JAVA FULL STACK</span>
+                </div>
+              </a>
+
+              <nav className="hidden md:flex items-center gap-6 text-xs font-mono text-slate-400">
+                <button onClick={() => scrollTo('about')} className="hover:text-cyber-cyan">About</button>
+                <button onClick={() => scrollTo('skills')} className="hover:text-cyber-cyan">Skills</button>
+                <button onClick={() => scrollTo('experience')} className="hover:text-cyber-cyan">Experience</button>
+                <button onClick={() => scrollTo('projects')} className="hover:text-cyber-cyan">Projects</button>
+                <button onClick={() => scrollTo('coding')} className="hover:text-cyber-cyan">Coding</button>
+                <button onClick={() => scrollTo('achievements')} className="hover:text-cyber-cyan">Achievements</button>
+                <button onClick={() => scrollTo('contact')} className="hover:text-cyber-cyan">Contact</button>
+              </nav>
+
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => setIsResumeOpen(true)}
+                  className="px-3.5 py-1.5 rounded-lg border border-slate-700 bg-slate-900 text-xs font-mono text-slate-200 hover:border-cyber-cyan"
+                >
+                  Resume
+                </button>
+                <button
+                  onClick={() => scrollTo('contact')}
+                  className="px-4 py-1.5 rounded-lg bg-gradient-to-r from-cyber-cyan to-cyber-blue text-dark-950 font-bold text-xs shadow-glow-cyan"
+                >
+                  Let's Talk
+                </button>
+              </div>
+            </div>
+          </header>
+
+          {/* Hero Section */}
+          <section id="hero" className="pt-36 pb-20 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+              <div className="lg:col-span-7">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-cyber-cyan/30 text-cyber-cyan text-xs font-mono mb-6">
+                  <span className="w-2 h-2 rounded-full bg-cyber-cyan animate-pulse"></span>
+                  <span>{DATA.statusBadge}</span>
+                </div>
+                <h1 className="text-4xl sm:text-6xl font-extrabold font-display text-white tracking-tight uppercase">
+                  {DATA.name}
+                </h1>
+                <div className="text-xl sm:text-2xl font-bold text-gradient-cyber mt-2 mb-4 font-display">
+                  {DATA.title}
+                </div>
+                <h2 className="text-2xl sm:text-3xl font-semibold text-slate-200 mb-4 leading-snug">
+                  "{DATA.headline}"
+                </h2>
+                <p className="text-slate-400 text-base sm:text-lg mb-8 max-w-2xl leading-relaxed">
+                  {DATA.subtext}
+                </p>
+                <div className="flex flex-wrap gap-2.5 mb-8">
+                  {DATA.coreStack.map(s => (
+                    <span key={s} className="px-3 py-1.5 rounded-lg bg-dark-850 border border-slate-800 text-xs font-mono text-slate-300">
+                      {s}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex flex-wrap gap-4">
+                  <button onClick={() => scrollTo('projects')} className="px-7 py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-dark-950 font-bold text-xs shadow-glow-cyan hover:brightness-110">
+                    View My Projects
+                  </button>
+                  <button onClick={() => setIsResumeOpen(true)} className="px-7 py-3.5 rounded-xl bg-dark-850 border border-slate-700 text-white font-semibold text-xs hover:border-cyber-cyan">
+                    Download Resume
+                  </button>
+                </div>
+              </div>
+              <div className="lg:col-span-5 relative">
+                <Hero3D />
+              </div>
+            </div>
+          </section>
+
+          {/* About Section */}
+          <section id="about" className="py-24 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 01. PROFILE OVERVIEW</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">About <span className="text-gradient-cyber">Me</span></h2>
+              <p className="text-slate-400 mt-2 text-sm">From database design to REST APIs and frontend integration, I enjoy building complete application flows.</p>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+              {DATA.stats.map(s => (
+                <div key={s.label} className="glass-card p-6 rounded-2xl border border-slate-800 text-center">
+                  <div className="text-2xl sm:text-3xl font-extrabold font-display text-gradient-cyber mb-1">{s.value}</div>
+                  <div className="text-xs font-bold text-white uppercase">{s.label}</div>
+                  <div className="text-[11px] text-slate-400 mt-1">{s.sub}</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Skills Section */}
+          <section id="skills" className="py-24 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-12">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 02. TECHNICAL ARSENAL</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">My <span className="text-gradient-cyber">Skills</span></h2>
+            </div>
+            <div className="flex flex-wrap justify-center gap-2 mb-10">
+              {Object.keys(DATA.skills).map(k => (
+                <button
+                  key={k}
+                  onClick={() => setSkillCategory(k)}
+                  className={`px-4 py-2 rounded-xl text-xs font-mono uppercase font-semibold transition-all ${
+                    skillCategory === k ? 'bg-dark-800 border border-cyber-cyan text-white shadow-glow-cyan' : 'bg-dark-900 border border-slate-800 text-slate-400 hover:text-white'
+                  }`}
+                >
+                  {k}
+                </button>
+              ))}
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+              {DATA.skills[skillCategory].map(s => (
+                <div key={s.name} className="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-center mb-3">
+                      <span className="text-base font-bold text-white font-display">{s.name}</span>
+                      <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-dark-850 text-cyber-cyan border border-slate-800">{s.level}</span>
+                    </div>
+                    <p className="text-xs text-slate-400 leading-relaxed">{s.desc}</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 text-[10px] font-mono text-slate-500">RESUME VERIFIED</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Experience Section */}
+          <section id="experience" className="py-24 max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 03. CAREER TIMELINE</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">Professional <span className="text-gradient-cyber">Experience</span></h2>
+            </div>
+            <div className="space-y-8">
+              {DATA.experience.map(exp => (
+                <div key={exp.id} className="glass-card p-8 rounded-2xl border border-slate-800">
+                  <div className="flex flex-col sm:flex-row justify-between sm:items-center gap-2 mb-3">
+                    <div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white font-display">{exp.role}</h3>
+                      <div className="text-sm font-semibold text-cyber-blue">{exp.company} • {exp.location}</div>
+                    </div>
+                    <span className="text-xs font-mono text-cyber-cyan px-3 py-1 rounded-full bg-slate-900 border border-slate-800 w-fit">{exp.period}</span>
+                  </div>
+                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed mb-4">{exp.description}</p>
+                  <ul className="space-y-1.5 mb-6 text-xs text-slate-400">
+                    {exp.responsibilities.map((r, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="text-cyber-cyan">▹</span>
+                        <span>{r}</span>
+                      </li>
+                    ))}
+                  </ul>
+                  <div className="flex flex-wrap gap-2 pt-4 border-t border-slate-800">
+                    {exp.stack.map(st => (
+                      <span key={st} className="px-2.5 py-1 rounded bg-dark-850 border border-slate-800 text-[11px] font-mono text-slate-300">
+                        {st}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Projects Section */}
+          <section id="projects" className="py-24 max-w-7xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 04. FEATURED WORK</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">Featured <span className="text-gradient-cyber">Projects</span></h2>
+            </div>
+            <div className="space-y-12">
+              {/* Project 1 */}
+              <div className="glass-card p-8 sm:p-10 rounded-3xl border border-slate-800">
+                <span className="text-xs font-mono text-cyber-cyan uppercase tracking-wider">// FULL STACK CRUD APP</span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display mt-1 mb-2">Inventory Management System</h3>
+                <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed mb-6">
+                  Full-stack application for product management, stock tracking, and CRUD operations built with Java, Spring Boot, ReactJS, and MySQL. Tested using Postman and managed with Git version control.
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6">
+                  {["Java", "Spring Boot", "ReactJS", "MySQL", "REST APIs", "Git"].map(t => (
+                    <span key={t} className="px-3 py-1.5 rounded-lg bg-dark-850 border border-slate-800 text-xs font-mono text-slate-200">{t}</span>
+                  ))}
+                </div>
+                <div className="flex gap-4">
+                  <a href={DATA.github} target="_blank" className="px-5 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-mono text-white">GitHub Repo</a>
+                </div>
+              </div>
+
+              {/* Project 2 */}
+              <div className="glass-card p-8 sm:p-10 rounded-3xl border border-slate-800">
+                <span className="text-xs font-mono text-cyber-emerald uppercase tracking-wider">// BLOCKCHAIN DISTRIBUTED LEDGER</span>
+                <h3 className="text-2xl sm:text-3xl font-extrabold text-white font-display mt-1 mb-2">Farmer-to-Consumer Food Traceability System</h3>
+                <p className="text-xs sm:text-sm text-slate-300 max-w-3xl leading-relaxed mb-6">
+                  Blockchain-based system designed to track products transparently from farmers to consumers, ensuring accountability, food safety, and immutable transaction records. Built with Java and MySQL.
+                </p>
+                <SupplyChainVisualizer />
+                <div className="mt-6 flex flex-wrap gap-2">
+                  {["Java", "Blockchain", "MySQL", "Verification Workflows"].map(t => (
+                    <span key={t} className="px-3 py-1.5 rounded-lg bg-dark-850 border border-slate-800 text-xs font-mono text-slate-200">{t}</span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </section>
+
+          {/* Coding Section */}
+          <section id="coding" className="py-24 max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-amber-400 uppercase tracking-widest">// 05. PROBLEM SOLVING</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">Code & <span className="text-gradient-cyber">Problem Solving</span></h2>
+            </div>
+            <div className="glass-card p-8 rounded-3xl border border-slate-800">
+              <div className="flex justify-between items-center mb-6">
+                <div>
+                  <h3 className="text-2xl font-bold text-white font-display">LeetCode Top SQL 50</h3>
+                  <p className="text-xs font-mono text-slate-400 mt-1">Verified problem-solving proficiency across relational database querying</p>
+                </div>
+                <span className="px-3 py-1 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/40 text-xs font-mono font-bold">Top SQL 50</span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
+                {["Joins", "Subqueries", "Window Functions", "Aggregation", "Ranking", "CTEs", "Query Optimization"].map(topic => (
+                  <div key={topic} className="p-3 rounded-xl bg-dark-850 border border-slate-800 text-xs font-mono text-slate-300">
+                    <span className="text-amber-400 mr-1.5">✓</span>
+                    {topic}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </section>
+
+          {/* Achievements Section */}
+          <section id="achievements" className="py-24 max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 06. CREDENTIALS</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">Certifications & <span className="text-gradient-cyber">Achievements</span></h2>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+              {DATA.achievements.map(ach => (
+                <div key={ach.title} className="glass-card p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
+                  <div>
+                    <div className="flex justify-between items-start mb-2">
+                      <h3 className="font-bold text-white text-lg font-display">{ach.title}</h3>
+                      <span className="px-2.5 py-0.5 rounded bg-slate-850 text-cyber-cyan text-xs font-mono">{ach.badge}</span>
+                    </div>
+                    <div className="text-xs font-mono text-slate-500 mb-3">{ach.org}</div>
+                    <p className="text-xs text-slate-300 leading-relaxed">{ach.desc}</p>
+                  </div>
+                  <div className="mt-4 pt-3 border-t border-slate-800 text-[10px] font-mono text-slate-500">AUTHENTICATED CREDENTIAL</div>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          {/* Contact Section */}
+          <section id="contact" className="py-24 max-w-5xl mx-auto px-4 sm:px-6">
+            <div className="text-center max-w-2xl mx-auto mb-16">
+              <span className="text-xs font-mono text-cyber-cyan uppercase tracking-widest">// 07. GET IN TOUCH</span>
+              <h2 className="text-3xl sm:text-5xl font-extrabold font-display text-white mt-2">Let's Build <span className="text-gradient-cyber">Something Together</span></h2>
+            </div>
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+              <div className="lg:col-span-5 flex flex-col justify-between">
+                <div>
+                  <h3 className="text-xl font-bold text-white font-display mb-3">Available for Full Stack Roles</h3>
+                  <p className="text-xs sm:text-sm text-slate-400 leading-relaxed mb-6">
+                    Open to entry-level Java Full Stack Developer opportunities. Feel free to send a message or contact me directly via email.
+                  </p>
+                  <div className="p-4 rounded-xl bg-dark-850 border border-slate-800 mb-6">
+                    <div className="text-[10px] font-mono text-slate-500 uppercase">Direct Email</div>
+                    <a href={`mailto:${DATA.email}`} className="text-sm font-semibold text-white hover:text-cyber-cyan">{DATA.email}</a>
+                  </div>
+                  <div className="space-y-2 text-xs font-mono text-slate-400">
+                    <div>GitHub: <a href={DATA.github} target="_blank" className="text-cyber-cyan">github.com/kkarthikarthick31</a></div>
+                    <div>LinkedIn: <a href={DATA.linkedin} target="_blank" className="text-cyber-cyan">linkedin.com/in/kkarthi2004</a></div>
+                  </div>
+                </div>
+              </div>
+              <div className="lg:col-span-7">
+                <form onSubmit={handleContactSubmit} className="glass-panel p-8 rounded-3xl border border-slate-800 space-y-4">
+                  {emailStatus && (
+                    <div className="p-3 rounded-lg bg-cyber-emerald/15 border border-cyber-emerald/30 text-xs font-mono text-cyber-emerald">
+                      {emailStatus}
+                    </div>
+                  )}
+                  <div>
+                    <label className="block text-xs font-mono text-slate-400 mb-1">Your Name *</label>
+                    <input name="name" required placeholder="Alex Morgan" className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyber-cyan" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono text-slate-400 mb-1">Your Email *</label>
+                    <input name="email" type="email" required placeholder="alex@company.com" className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyber-cyan" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono text-slate-400 mb-1">Subject</label>
+                    <input name="subject" placeholder="Developer Role / Inquiry" className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyber-cyan" />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-mono text-slate-400 mb-1">Message *</label>
+                    <textarea name="message" required rows="4" placeholder="Let's build together..." className="w-full px-4 py-3 rounded-xl bg-dark-950 border border-slate-800 text-sm text-white focus:outline-none focus:border-cyber-cyan resize-none"></textarea>
+                  </div>
+                  <button type="submit" className="w-full py-3.5 rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-dark-950 font-bold text-xs shadow-glow-cyan hover:brightness-110">
+                    Send Message
+                  </button>
+                </form>
+              </div>
+            </div>
+          </section>
+
+          {/* Footer */}
+          <footer className="py-12 border-t border-slate-800 text-center text-xs font-mono text-slate-500">
+            <div>© 2026 {DATA.name}. Java Full Stack Developer • All rights reserved.</div>
+          </footer>
+
+          {/* Resume Modal */}
+          {isResumeOpen && (
+            <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-dark-950/80 backdrop-blur-md">
+              <div className="relative w-full max-w-3xl max-h-[90vh] bg-dark-900 border border-slate-700 rounded-2xl p-6 sm:p-8 overflow-y-auto">
+                <div className="flex justify-between items-center pb-4 mb-6 border-b border-slate-800">
+                  <h3 className="text-xl font-bold text-white font-display">Resume: {DATA.name}</h3>
+                  <div className="flex items-center gap-2">
+                    <button onClick={() => window.print()} className="px-3 py-1.5 rounded-lg bg-cyber-cyan text-dark-950 text-xs font-bold">Print / Save PDF</button>
+                    <button onClick={() => setIsResumeOpen(false)} className="text-slate-400 hover:text-white px-2 text-base">✕</button>
+                  </div>
+                </div>
+                <div className="space-y-6 text-xs text-slate-300">
+                  <div>
+                    <h4 className="text-white font-bold text-base">{DATA.name}</h4>
+                    <p className="text-cyber-cyan">{DATA.title} • {DATA.location}</p>
+                    <p className="mt-1 text-slate-400">Email: {DATA.email} | GitHub: github.com/kkarthikarthick31 | LinkedIn: linkedin.com/in/kkarthi2004</p>
+                  </div>
+                  <div>
+                    <div className="text-cyber-cyan font-bold uppercase mb-1">// Education</div>
+                    <p className="text-white font-semibold">Master of Computer Applications (MCA) — 80% Aggregate</p>
+                  </div>
+                  <div>
+                    <div className="text-cyber-cyan font-bold uppercase mb-1">// Experience</div>
+                    {DATA.experience.map(exp => (
+                      <div key={exp.id} className="mb-3">
+                        <div className="text-white font-semibold">{exp.role} — {exp.company} ({exp.period})</div>
+                        <p className="text-slate-400 mt-0.5">{exp.description}</p>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+          )}
+
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
