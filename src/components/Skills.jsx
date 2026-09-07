@@ -201,20 +201,12 @@ const skills = [
 // ANIMATION VARIANTS
 // --------------------------------------------------
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.08,
-    },
-  },
-};
-
-const cardVariants = {
+// Main category animation
+const categoryVariants = {
   hidden: {
     opacity: 0,
-    y: 40,
-    scale: 0.95,
+    y: 50,
+    scale: 0.96,
   },
 
   visible: {
@@ -222,8 +214,50 @@ const cardVariants = {
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.5,
+      duration: 0.65,
       ease: "easeOut",
+    },
+  },
+};
+
+// Individual skill animation
+const skillVariants = {
+  hidden: {
+    opacity: 0,
+    y: 20,
+    scale: 0.92,
+  },
+
+  visible: {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    transition: {
+      duration: 0.4,
+      ease: "easeOut",
+    },
+  },
+};
+
+// Skill items stagger
+const skillItemsVariants = {
+  hidden: {},
+
+  visible: {
+    transition: {
+      staggerChildren: 0.07,
+      delayChildren: 0.1,
+    },
+  },
+};
+
+// Main categories stagger
+const categoriesContainerVariants = {
+  hidden: {},
+
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
     },
   },
 };
@@ -235,17 +269,35 @@ const cardVariants = {
 const Skills = () => {
   return (
     <section id="skills" className="skills-section">
+
       <div className="skills-container">
 
+        {/* ------------------------------------------ */}
         {/* SECTION HEADER */}
+        {/* ------------------------------------------ */}
+
         <motion.div
           className="section-header"
-          initial={{ opacity: 0, y: -30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ duration: 0.7 }}
+          initial={{
+            opacity: 0,
+            y: -35,
+          }}
+          whileInView={{
+            opacity: 1,
+            y: 0,
+          }}
+          viewport={{
+            once: true,
+            amount: 0.2,
+          }}
+          transition={{
+            duration: 0.7,
+            ease: "easeOut",
+          }}
         >
-          <span className="section-label">MY EXPERTISE</span>
+          <span className="section-label">
+            MY EXPERTISE
+          </span>
 
           <h2 className="section-title">
             Technical <span>Skills</span>
@@ -257,71 +309,118 @@ const Skills = () => {
           </p>
         </motion.div>
 
+        {/* ------------------------------------------ */}
         {/* SKILL CATEGORIES */}
+        {/* ------------------------------------------ */}
+
         <motion.div
           className="skills-grid"
-          variants={containerVariants}
+          variants={categoriesContainerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{
             once: true,
-            amount: 0.1,
+            amount: 0.08,
           }}
         >
           {skills.map((group, groupIndex) => (
+
             <motion.div
               className="skill-category"
-              variants={cardVariants}
-              key={groupIndex}
+              variants={categoryVariants}
+              key={group.category}
+              whileHover={{
+                y: -4,
+                transition: {
+                  duration: 0.25,
+                },
+              }}
             >
 
+              {/* ------------------------------------ */}
               {/* CATEGORY TITLE */}
+              {/* ------------------------------------ */}
+
               <div className="skill-category-title">
+
                 <span className="category-number">
-                  0{groupIndex + 1}
+                  {String(groupIndex + 1).padStart(2, "0")}
                 </span>
 
-                <h3>{group.category}</h3>
+                <h3>
+                  {group.category}
+                </h3>
+
               </div>
 
+              {/* ------------------------------------ */}
               {/* SKILL ITEMS */}
-              <div className="skill-items">
+              {/* ------------------------------------ */}
+
+              <motion.div
+                className="skill-items"
+                variants={skillItemsVariants}
+              >
+
                 {group.items.map((skill, index) => {
 
                   const Icon =
                     ICON_MAP[skill.icon] || TbCode;
 
                   return (
+
                     <motion.div
                       className="skill-card"
-                      key={index}
+                      variants={skillVariants}
+                      key={`${group.category}-${skill.name}`}
                       whileHover={{
-                        y: -6,
-                        scale: 1.03,
+                        y: -7,
+                        scale: 1.035,
+                      }}
+                      whileTap={{
+                        scale: 0.98,
                       }}
                       transition={{
                         duration: 0.2,
+                        ease: "easeOut",
                       }}
                     >
 
-                      <div className="skill-icon">
+                      {/* ICON */}
+
+                      <motion.div
+                        className="skill-icon"
+                        whileHover={{
+                          rotate: [0, -5, 5, 0],
+                          scale: 1.08,
+                        }}
+                        transition={{
+                          duration: 0.35,
+                        }}
+                      >
                         <Icon size={28} />
-                      </div>
+                      </motion.div>
+
+                      {/* NAME */}
 
                       <span className="skill-name">
                         {skill.name}
                       </span>
 
                     </motion.div>
+
                   );
                 })}
-              </div>
+
+              </motion.div>
 
             </motion.div>
+
           ))}
         </motion.div>
 
       </div>
+
     </section>
   );
 };

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import CustomCursor from './components/CustomCursor';
 import ParticleBackground from './components/ParticleBackground';
 import Navbar from './components/Navbar';
@@ -31,6 +31,23 @@ const SECTION_IDS = [
 export default function App() {
   const activeSection = useScrollSpy(SECTION_IDS, 180);
 
+  // Navbar Resume → Open/View resume in a new tab
+  const openResume = () => {
+    window.open('/resume.pdf', '_blank');
+  };
+
+  // Hero Download Resume → Directly download resume
+  const downloadResume = () => {
+    const link = document.createElement('a');
+
+    link.href = '/resume.pdf';
+    link.download = 'Karthick_K_Resume.pdf';
+
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
   return (
     <div className="relative min-h-screen bg-dark-950 text-slate-100 selection:bg-cyber-cyan selection:text-dark-950">
 
@@ -43,22 +60,37 @@ export default function App() {
       {/* Fixed Navigation Bar */}
       <Navbar
         activeSection={activeSection}
-        onOpenResume={() => window.open('/resume.pdf', '_blank')}
+        onOpenResume={openResume}
       />
 
       {/* Main Content Sections */}
       <main className="relative z-10">
-        <Hero onOpenResume={() => window.open('/resume.pdf', '_blank')} />
+
+        {/* Hero Section */}
+        <Hero
+          onOpenResume={downloadResume}
+        />
+
         <About />
+
         <Skills />
+
         <Experience />
+
         <Projects />
+
         <ProjectDownloads />
+
         <Articles />
+
         <CodingProfiles />
+
         <Achievements />
+
         <CTA />
+
         <Contact />
+
       </main>
 
       {/* Footer */}
