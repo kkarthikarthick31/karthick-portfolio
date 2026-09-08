@@ -1,6 +1,7 @@
 import React from 'react';
 import CustomCursor from './components/CustomCursor';
 import ParticleBackground from './components/ParticleBackground';
+import SQLConsole from './components/SQLConsole';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
@@ -11,7 +12,6 @@ import ProjectDownloads from './components/ProjectDownloads';
 import Articles from './components/Articles';
 import CodingProfiles from './components/CodingProfiles';
 import Achievements from './components/Achievements';
-import CTA from './components/CTA';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import { useScrollSpy } from './hooks/useScrollSpy';
@@ -54,6 +54,8 @@ export default function App() {
       {/* Interactive Custom Cursor */}
       <CustomCursor />
 
+      <SQLConsole />
+
       {/* Dynamic Particle Canvas Background */}
       <ParticleBackground />
 
@@ -86,8 +88,6 @@ export default function App() {
         <CodingProfiles />
 
         <Achievements />
-
-        <CTA />
 
         <Contact />
 

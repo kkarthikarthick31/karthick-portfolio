@@ -17,12 +17,18 @@ const NAV_ITEMS = [
 export default function Navbar({ activeSection, onOpenResume }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 40);
+
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
+      setScrollProgress(progress);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
+    handleScroll();
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -130,6 +136,15 @@ export default function Navbar({ activeSection, onOpenResume }) {
               {mobileMenuOpen ? <HiX className="text-xl" /> : <HiMenuAlt3 className="text-xl" />}
             </button>
           </div>
+        </div>
+
+        {/* Scroll progress bar — thin glowing line along the bottom edge */}
+        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-slate-900/40 overflow-hidden">
+          <motion.div
+            className="h-full bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple shadow-[0_0_8px_rgba(0,242,254,0.6)]"
+            style={{ width: `${scrollProgress}%` }}
+            transition={{ duration: 0.1 }}
+          />
         </div>
       </header>
 

@@ -3,7 +3,7 @@ import { motion } from 'framer-motion';
 import { DOWNLOADABLE_PROJECTS } from '../data/portfolioData';
 import SectionHeading from './UI/SectionHeading';
 import TiltCard from './UI/TiltCard';
-import { IoCloudDownloadOutline, IoLogoGithub, IoCheckmarkCircleOutline } from 'react-icons/io5';
+import { IoCloudDownloadOutline, IoLogoGithub } from 'react-icons/io5';
 import confetti from 'canvas-confetti';
 
 export default function ProjectDownloads() {

@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import { PERSONAL_INFO } from '../data/portfolioData';
 import { IoArrowUpOutline } from 'react-icons/io5';
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { MdEmail } from 'react-icons/md';
 
 export default function Footer() {
+  const [showFloatingButton, setShowFloatingButton] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setShowFloatingButton(window.scrollY > window.innerHeight * 0.8);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -25,149 +36,177 @@ export default function Footer() {
   ];
 
   return (
-    <footer className="relative border-t border-slate-800/80 bg-dark-950 pt-16 pb-12 overflow-hidden">
+    <>
+      {/* ==================================================
+          FLOATING BACK-TO-TOP BUTTON
+          Fixed to viewport, appears after scrolling past Hero
+      ================================================== */}
+      <AnimatePresence>
+        {showFloatingButton && (
+          <motion.button
+            initial={{ opacity: 0, scale: 0.7, y: 15 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.7, y: 15 }}
+            transition={{ duration: 0.25 }}
+            whileHover={{ scale: 1.08, y: -2 }}
+            whileTap={{ scale: 0.95 }}
+            onClick={scrollToTop}
+            aria-label="Scroll back to top"
+            className="fixed bottom-6 right-6 z-40 w-11 h-11 sm:w-12 sm:h-12 rounded-full bg-dark-900/90 border border-cyber-cyan/40 backdrop-blur-md shadow-glow-cyan flex items-center justify-center text-cyber-cyan hover:text-white hover:border-cyber-cyan transition-colors group"
+          >
+            <IoArrowUpOutline className="text-lg group-hover:-translate-y-0.5 transition-transform" />
+          </motion.button>
+        )}
+      </AnimatePresence>
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <footer className="relative border-t border-slate-800/80 bg-dark-950 pt-16 pb-12 overflow-hidden">
 
-        {/* ==================================================
-            TOP SECTION
-        ================================================== */}
+        {/* Top glow divider — marks the transition into the footer */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyber-cyan/40 to-transparent" />
+        <div className="absolute top-0 left-1/4 right-1/4 h-px bg-gradient-to-r from-transparent via-cyber-purple/30 to-transparent blur-sm" />
 
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-800/60">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-          {/* BRAND INFO */}
+          {/* ==================================================
+              TOP SECTION
+          ================================================== */}
 
-          <div className="flex flex-col items-center md:items-start text-center md:text-left">
+          <div className="flex flex-col md:flex-row items-center justify-between gap-8 pb-12 border-b border-slate-800/60">
 
-            <div className="flex items-center gap-2 mb-2">
+            {/* BRAND INFO */}
 
-              <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-purple p-0.5 shadow-glow-cyan">
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
 
-                <div className="w-full h-full bg-dark-950 rounded-[6px] flex items-center justify-center font-display font-extrabold text-white text-xs">
-                  K
+              <div className="flex items-center gap-2 mb-2">
+
+                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-cyber-cyan to-cyber-purple p-0.5 shadow-glow-cyan">
+
+                  <div className="w-full h-full bg-dark-950 rounded-[6px] flex items-center justify-center font-display font-extrabold text-white text-xs">
+                    K
+                  </div>
+
                 </div>
+
+                <span className="text-xl font-extrabold font-display tracking-wider text-white">
+                  {PERSONAL_INFO.name}
+                </span>
 
               </div>
 
-              <span className="text-xl font-extrabold font-display tracking-wider text-white">
-                {PERSONAL_INFO.name}
-              </span>
+              <p className="text-xs font-mono text-cyber-cyan">
+                {PERSONAL_INFO.title} • {PERSONAL_INFO.location}
+              </p>
+
+              <p className="text-xs text-slate-400 mt-1 max-w-sm">
+                "{PERSONAL_INFO.headline}"
+              </p>
 
             </div>
 
-            <p className="text-xs font-mono text-cyber-cyan">
-              {PERSONAL_INFO.title} • {PERSONAL_INFO.location}
-            </p>
 
-            <p className="text-xs text-slate-400 mt-1 max-w-sm">
-              "{PERSONAL_INFO.headline}"
-            </p>
+            {/* ==================================================
+                QUICK NAVIGATION
+            ================================================== */}
 
-          </div>
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-slate-400">
+
+              {navLinks.map((link) => (
+
+                <a
+                  key={link.label}
+                  href={link.href}
+                  className="hover:text-cyber-cyan transition-colors"
+                >
+                  {link.label}
+                </a>
+
+              ))}
+
+            </div>
 
 
-          {/* ==================================================
-              QUICK NAVIGATION
-          ================================================== */}
+            {/* ==================================================
+                SOCIAL LINKS
+            ================================================== */}
 
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs font-mono text-slate-400">
+            <div className="flex items-center gap-3">
 
-            {navLinks.map((link) => (
+              {/* GITHUB */}
 
-              <a
-                key={link.label}
-                href={link.href}
-                className="hover:text-cyber-cyan transition-colors"
+              <a 
+                href={PERSONAL_INFO.github}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
+                aria-label="GitHub Profile"
               >
-                {link.label}
+                <FaGithub className="text-base" />
               </a>
 
-            ))}
+
+              {/* LINKEDIN */}
+
+              <a
+                href={PERSONAL_INFO.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
+                aria-label="LinkedIn Profile"
+              >
+                <FaLinkedin className="text-base text-[#0a66c2]" />
+              </a>
+
+
+              {/* EMAIL */}
+
+              <a
+                href={`mailto:${PERSONAL_INFO.email}`}
+                className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
+                aria-label="Direct Email"
+              >
+                <MdEmail className="text-base text-cyber-cyan" />
+              </a>
+
+            </div>
 
           </div>
 
 
           {/* ==================================================
-              SOCIAL LINKS
+              BOTTOM BAR
           ================================================== */}
 
-          <div className="flex items-center gap-3">
+          <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
 
-            {/* GITHUB */}
+            {/* COPYRIGHT */}
 
-            <a
-              href={PERSONAL_INFO.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
-              aria-label="GitHub Profile"
+            <div>
+              © 2026 {PERSONAL_INFO.name}. All rights reserved.
+            </div>
+
+
+            {/* BACK TO TOP (inline, still present) */}
+
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-dark-900 border border-slate-800 text-slate-400 hover:text-cyber-cyan hover:border-cyber-cyan/40 transition-all group"
             >
-              <FaGithub className="text-base" />
-            </a>
 
+              <span>
+                Back to Top
+              </span>
 
-            {/* LINKEDIN */}
+              <IoArrowUpOutline
+                className="text-sm group-hover:-translate-y-0.5 transition-transform"
+              />
 
-            <a
-              href={PERSONAL_INFO.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
-              aria-label="LinkedIn Profile"
-            >
-              <FaLinkedin className="text-base text-[#0a66c2]" />
-            </a>
-
-
-            {/* EMAIL */}
-
-            <a
-              href={`mailto:${PERSONAL_INFO.email}`}
-              className="p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-cyber-cyan transition-all"
-              aria-label="Direct Email"
-            >
-              <MdEmail className="text-base text-cyber-cyan" />
-            </a>
+            </button>
 
           </div>
 
         </div>
 
-
-        {/* ==================================================
-            BOTTOM BAR
-        ================================================== */}
-
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
-
-          {/* COPYRIGHT */}
-
-          <div>
-            © 2026 {PERSONAL_INFO.name}. All rights reserved.
-          </div>
-
-
-          {/* BACK TO TOP */}
-
-          <button
-            onClick={scrollToTop}
-            className="flex items-center gap-2 px-3.5 py-1.5 rounded-xl bg-dark-900 border border-slate-800 text-slate-400 hover:text-cyber-cyan hover:border-cyber-cyan/40 transition-all group"
-          >
-
-            <span>
-              Back to Top
-            </span>
-
-            <IoArrowUpOutline
-              className="text-sm group-hover:-translate-y-0.5 transition-transform"
-            />
-
-          </button>
-
-        </div>
-
-      </div>
-
-    </footer>
+      </footer>
+    </>
   );
 }
