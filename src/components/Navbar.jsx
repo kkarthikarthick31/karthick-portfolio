@@ -1,31 +1,26 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useScroll } from 'framer-motion';
 import { HiMenuAlt3, HiX } from 'react-icons/hi';
-import { IoDocumentTextOutline } from 'react-icons/io5';
+import { IoDocumentTextOutline, IoFlashOutline } from 'react-icons/io5';
 
 const NAV_ITEMS = [
   { id: 'hero', label: 'Home' },
   { id: 'about', label: 'About' },
   { id: 'skills', label: 'Skills' },
-  { id: 'experience', label: 'Experience' },
   { id: 'projects', label: 'Projects' },
-  { id: 'articles', label: 'Articles' },
-  { id: 'coding', label: 'Coding' },
+  { id: 'experience', label: 'Experience' },
+  { id: 'achievements', label: 'Achievements' },
   { id: 'contact', label: 'Contact' },
 ];
 
-export default function Navbar({ activeSection, onOpenResume }) {
+export default function Navbar({ activeSection, onOpenResume, onOpenHRView }) {
   const [isScrolled, setIsScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const { scrollYProgress } = useScroll();
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
-
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? (window.scrollY / docHeight) * 100 : 0;
-      setScrollProgress(progress);
+      setIsScrolled(window.scrollY > 30);
     };
     window.addEventListener('scroll', handleScroll, { passive: true });
     handleScroll();
@@ -36,36 +31,43 @@ export default function Navbar({ activeSection, onOpenResume }) {
     setMobileMenuOpen(false);
     const element = document.getElementById(id);
     if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   };
 
   return (
     <>
+      {/* Top Scroll Depth Progress Indicator */}
+      <motion.div
+        className="fixed top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple z-50 origin-left"
+        style={{ scaleX: scrollYProgress }}
+      />
+
       <header
         className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
           isScrolled
-            ? 'py-3 bg-dark-950/80 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl'
-            : 'py-6 bg-transparent'
+            ? 'py-3 bg-dark-950/85 backdrop-blur-xl border-b border-slate-800/80 shadow-2xl'
+            : 'py-5 bg-transparent'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          {/* Logo / Name */}
+
+          {/* Logo / Monogram: KK */}
           <a
             href="#hero"
             onClick={(e) => {
               e.preventDefault();
               scrollToSection('hero');
             }}
-            className="flex items-center gap-2.5 group"
+            className="flex items-center gap-2.5 group cursor-pointer"
           >
             <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-cyber-cyan to-cyber-purple p-0.5 shadow-glow-cyan transition-transform duration-300 group-hover:scale-105">
-              <div className="w-full h-full bg-dark-950 rounded-[10px] flex items-center justify-center font-display font-extrabold text-white text-sm">
-                K
+              <div className="w-full h-full bg-dark-950 rounded-[10px] flex items-center justify-center font-display font-black text-white text-sm tracking-wider">
+                KK
               </div>
             </div>
-            <div className="flex flex-col">
-              <span className="font-display font-extrabold tracking-wider text-base text-white group-hover:text-cyber-cyan transition-colors">
+            <div className="flex flex-col text-left">
+              <span className="font-display font-bold tracking-wider text-sm sm:text-base text-white group-hover:text-cyber-cyan transition-colors">
                 KARTHICK K
               </span>
               <span className="text-[10px] font-mono text-slate-400 tracking-tight">
@@ -74,24 +76,22 @@ export default function Navbar({ activeSection, onOpenResume }) {
             </div>
           </a>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center gap-1 bg-dark-900/60 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-800/80 shadow-inner">
+          {/* Desktop Navigation Links (7 Ordered Sections) */}
+          <nav className="hidden lg:flex items-center gap-1 bg-dark-900/70 backdrop-blur-md px-3 py-1.5 rounded-full border border-slate-800/90 shadow-inner">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className={`relative px-3.5 py-1.5 text-xs font-medium rounded-full transition-all duration-200 ${
-                    isActive
-                      ? 'text-white'
-                      : 'text-slate-400 hover:text-slate-200'
+                  className={`relative px-3.5 py-1.5 text-xs font-mono font-medium rounded-full transition-all duration-200 cursor-pointer ${
+                    isActive ? 'text-white' : 'text-slate-400 hover:text-slate-200'
                   }`}
                 >
                   {isActive && (
                     <motion.div
                       layoutId="activeNavIndicator"
-                      className="absolute inset-0 rounded-full bg-gradient-to-r from-cyber-cyan/20 to-cyber-purple/20 border border-cyber-cyan/40 shadow-glow-blue"
+                      className="absolute inset-0 rounded-full bg-cyber-cyan/15 border border-cyber-cyan/40 shadow-glow-cyan"
                       transition={{ type: 'spring', stiffness: 380, damping: 30 }}
                     />
                   )}
@@ -101,107 +101,91 @@ export default function Navbar({ activeSection, onOpenResume }) {
             })}
           </nav>
 
-          {/* CTA Action Buttons */}
-          <div className="hidden sm:flex items-center gap-3">
+          {/* Right CTAs: Status Indicator + HR Quick View + Download Resume */}
+          <div className="hidden md:flex items-center gap-3">
+            {/* Status Pill */}
+            <div className="hidden xl:flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/25 text-[11px] font-mono text-emerald-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
+              <span>AVAILABLE FOR OPPORTUNITIES</span>
+            </div>
+
+            {/* HR Quick View Trigger */}
             <button
-              onClick={onOpenResume}
-              className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-slate-200 hover:text-white bg-slate-900/90 hover:bg-slate-800 border border-slate-700/80 hover:border-cyber-cyan/50 rounded-xl transition-all shadow-sm group"
+              onClick={onOpenHRView}
+              className="px-3.5 py-1.5 rounded-full bg-cyber-cyan/10 hover:bg-cyber-cyan/20 border border-cyber-cyan/40 text-cyber-cyan text-xs font-mono font-semibold transition-all flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
-              <IoDocumentTextOutline className="text-sm text-cyber-cyan group-hover:rotate-12 transition-transform" />
-              <span>Resume</span>
+              <IoFlashOutline className="text-sm" />
+              <span>HR QUICK VIEW</span>
             </button>
 
+            {/* Download Resume Button */}
             <button
-              onClick={() => scrollToSection('contact')}
-              className="px-4 py-2 text-xs font-bold text-dark-950 bg-gradient-to-r from-cyber-cyan to-cyber-blue hover:to-cyber-purple rounded-xl shadow-glow-cyan hover:shadow-cyan-500/50 hover:brightness-110 transition-all active:scale-95"
+              onClick={onOpenResume}
+              className="px-4 py-1.5 rounded-full bg-white text-dark-950 hover:bg-slate-200 text-xs font-mono font-bold transition-all shadow-md flex items-center gap-1.5 cursor-pointer"
             >
-              Let's Talk
+              <IoDocumentTextOutline className="text-sm" />
+              <span>VIEW RESUME</span>
             </button>
           </div>
 
           {/* Mobile Hamburger Toggle */}
-          <div className="flex sm:hidden items-center gap-2">
-            <button
-              onClick={onOpenResume}
-              className="p-2 text-cyber-cyan bg-slate-900/80 border border-slate-800 rounded-lg text-sm"
-              title="Resume"
-            >
-              <IoDocumentTextOutline />
-            </button>
-            <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 text-slate-300 hover:text-white bg-slate-900/80 border border-slate-800 rounded-lg transition-colors"
-              aria-label="Toggle Navigation Menu"
-            >
-              {mobileMenuOpen ? <HiX className="text-xl" /> : <HiMenuAlt3 className="text-xl" />}
-            </button>
-          </div>
-        </div>
+          <button
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            className="lg:hidden p-2 rounded-xl bg-dark-900 border border-slate-800 text-slate-300 hover:text-white"
+            aria-label="Toggle navigation menu"
+          >
+            {mobileMenuOpen ? <HiX className="text-xl" /> : <HiMenuAlt3 className="text-xl" />}
+          </button>
 
-        {/* Scroll progress bar — thin glowing line along the bottom edge */}
-        <div className="absolute bottom-0 left-0 right-0 h-[2px] bg-slate-900/40 overflow-hidden">
-          <motion.div
-            className="h-full bg-gradient-to-r from-cyber-cyan via-cyber-blue to-cyber-purple shadow-[0_0_8px_rgba(0,242,254,0.6)]"
-            style={{ width: `${scrollProgress}%` }}
-            transition={{ duration: 0.1 }}
-          />
         </div>
       </header>
 
-      {/* Mobile Drawer Overlay */}
+      {/* Mobile Sliding Drawer Menu */}
       <AnimatePresence>
         {mobileMenuOpen && (
           <motion.div
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-30 pt-24 pb-8 px-6 bg-dark-950/95 backdrop-blur-2xl flex flex-col justify-between lg:hidden"
+            transition={{ duration: 0.2 }}
+            className="fixed inset-x-0 top-16 z-30 bg-dark-950/95 border-b border-slate-800 backdrop-blur-2xl p-6 lg:hidden shadow-2xl"
           >
             <div className="flex flex-col gap-3">
-              <span className="text-[10px] font-mono text-cyber-cyan uppercase tracking-widest px-2">
-                // Navigation
-              </span>
-              {NAV_ITEMS.map((item, index) => {
-                const isActive = activeSection === item.id;
-                return (
-                  <motion.button
-                    key={item.id}
-                    initial={{ opacity: 0, x: -20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: index * 0.04 }}
-                    onClick={() => scrollToSection(item.id)}
-                    className={`flex items-center justify-between p-3.5 rounded-xl text-left font-display text-base font-bold transition-all ${
-                      isActive
-                        ? 'bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan'
-                        : 'text-slate-300 hover:bg-slate-900/80 hover:text-white'
-                    }`}
-                  >
-                    <span>{item.label}</span>
-                    <span className="text-xs font-mono text-slate-500">0{index + 1}</span>
-                  </motion.button>
-                );
-              })}
-            </div>
+              {NAV_ITEMS.map((item) => (
+                <button
+                  key={item.id}
+                  onClick={() => scrollToSection(item.id)}
+                  className={`text-left px-4 py-2.5 rounded-xl font-mono text-sm transition-colors ${
+                    activeSection === item.id
+                      ? 'bg-cyber-cyan/15 text-cyber-cyan border border-cyber-cyan/30'
+                      : 'text-slate-300 hover:text-white hover:bg-dark-900'
+                  }`}
+                >
+                  {item.label}
+                </button>
+              ))}
 
-            <div className="pt-6 border-t border-slate-800/80 flex flex-col gap-3">
-              <button
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onOpenResume();
-                }}
-                className="w-full py-3 text-center text-sm font-semibold rounded-xl bg-slate-900 border border-slate-700 text-slate-200 flex items-center justify-center gap-2"
-              >
-                <IoDocumentTextOutline className="text-cyber-cyan text-base" />
-                <span>Download / Preview Resume</span>
-              </button>
+              <div className="pt-4 mt-2 border-t border-slate-800 flex flex-col gap-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenHRView();
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-cyber-cyan/10 border border-cyber-cyan/40 text-cyber-cyan text-xs font-mono font-semibold text-center"
+                >
+                  HR QUICK VIEW
+                </button>
 
-              <button
-                onClick={() => scrollToSection('contact')}
-                className="w-full py-3 text-center text-sm font-bold rounded-xl bg-gradient-to-r from-cyber-cyan to-cyber-blue text-dark-950 shadow-glow-cyan"
-              >
-                Contact Me
-              </button>
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenResume();
+                  }}
+                  className="w-full py-2.5 rounded-xl bg-white text-dark-950 text-xs font-mono font-bold text-center"
+                >
+                  VIEW RESUME (PDF)
+                </button>
+              </div>
             </div>
           </motion.div>
         )}

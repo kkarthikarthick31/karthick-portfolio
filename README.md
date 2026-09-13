@@ -87,5 +87,5 @@ karthick-portfolio/
 ---
 
 ## 🔒 Strict Content Rule & Verification
-- **No Hallucinated Data**: All statistics, experience items (Top Tech Developers, Chennai & Crud Academy, Karur), education (80% MCA), certification (NPTEL 71%), and projects are strictly sourced from Karthick K's resume.
+- **No Hallucinated Data**: All statistics, experience items (Top Tech Developers, Chennai & Crud Academy, Coimbatore), education (80% MCA), certification (NPTEL 71%), and projects are strictly sourced from Karthick K's resume.
 - **Configurable Placeholders**: Missing external links (`LEETCODE_PROFILE_URL`, `PROJECT_DOWNLOAD_URL`, `PROJECT_GITHUB_URL`, etc.) are centralized inside `src/data/portfolioData.js` for instant updates.

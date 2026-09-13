@@ -1,7 +1,14 @@
 import React, { useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { PERSONAL_INFO, EXPERIENCE_DATA, FEATURED_PROJECTS, ACHIEVEMENTS_DATA } from '../data/portfolioData';
-import { IoClose, IoDownloadOutline, IoPrintOutline } from 'react-icons/io5';
+import {
+  PERSONAL_INFO,
+  EXPERIENCE_TIMELINE,
+  PROJECTS_DATA,
+  ACHIEVEMENTS_LIST,
+  EDUCATION_LIST,
+  TECHNICAL_SKILLS,
+} from '../data/portfolioData';
+import { IoClose, IoDownloadOutline, IoPrintOutline, IoDocumentTextOutline } from 'react-icons/io5';
 import confetti from 'canvas-confetti';
 
 export default function ResumeModal({ isOpen, onClose }) {
@@ -21,183 +28,220 @@ export default function ResumeModal({ isOpen, onClose }) {
     };
   }, [isOpen, onClose]);
 
-  const handlePrint = () => {
+  const handleDownloadPDF = () => {
     confetti({
-      particleCount: 80,
-      spread: 70,
+      particleCount: 60,
+      spread: 60,
       origin: { y: 0.6 },
     });
+    const link = document.createElement('a');
+    link.href = PERSONAL_INFO.resumeFile;
+    link.download = 'Karthick_K_Resume.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  const handlePrint = () => {
     window.print();
   };
 
+  if (!isOpen) return null;
+
   return (
     <AnimatePresence>
-      {isOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6 md:p-10">
-          {/* Backdrop */}
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            onClick={onClose}
-            className="fixed inset-0 bg-dark-950/80 backdrop-blur-md"
-          />
+      <div className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 md:p-8">
+        {/* Backdrop */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={onClose}
+          className="fixed inset-0 bg-dark-950/85 backdrop-blur-md"
+        />
 
-          {/* Modal Container */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95, y: 20 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-            transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-4xl max-h-[90vh] bg-dark-900 border border-slate-700/60 rounded-2xl shadow-2xl overflow-hidden flex flex-col z-10"
-          >
-            {/* Header bar */}
-            <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-dark-950/70">
-              <div className="flex items-center gap-3">
-                <div className="w-3 h-3 rounded-full bg-cyber-cyan animate-pulse" />
-                <h3 className="text-base font-semibold text-white font-display">
-                  Resume Preview: {PERSONAL_INFO.name}
-                </h3>
-              </div>
+        {/* Modal Window */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.96, y: 15 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.96, y: 15 }}
+          transition={{ duration: 0.25 }}
+          className="relative w-full max-w-4xl max-h-[92vh] bg-dark-900 border border-slate-700/80 rounded-2xl shadow-2xl overflow-hidden flex flex-col z-10 text-left"
+        >
+          {/* Top Control Bar */}
+          <div className="flex items-center justify-between px-6 py-4 border-b border-slate-800 bg-dark-950">
+            <div className="flex items-center gap-3">
+              <div className="w-2.5 h-2.5 rounded-full bg-cyber-cyan animate-pulse" />
+              <h3 className="text-sm font-semibold text-white font-mono uppercase tracking-wider">
+                ATS Resume: {PERSONAL_INFO.name} ({PERSONAL_INFO.role})
+              </h3>
+            </div>
 
-              <div className="flex items-center gap-2">
-                <button
-                  onClick={handlePrint}
-                  className="flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-dark-950 bg-cyber-cyan hover:bg-cyber-blue rounded-lg transition-all shadow-glow-cyan"
-                  title="Print or Save as PDF"
-                >
-                  <IoPrintOutline className="text-sm" />
-                  <span>Download / Print PDF</span>
-                </button>
-                <button
-                  onClick={onClose}
-                  className="p-2 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
-                  aria-label="Close modal"
-                >
-                  <IoClose className="text-xl" />
-                </button>
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleDownloadPDF}
+                className="flex items-center gap-1.5 px-3.5 py-1.5 text-xs font-semibold text-dark-950 bg-cyber-cyan hover:bg-cyber-blue rounded-lg transition-all shadow-glow-cyan"
+              >
+                <IoDownloadOutline className="text-sm" />
+                <span>Download PDF</span>
+              </button>
+
+              <button
+                onClick={handlePrint}
+                className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 text-xs font-mono text-slate-300 bg-dark-850 hover:bg-dark-800 border border-slate-700 rounded-lg transition-all"
+              >
+                <IoPrintOutline className="text-sm" />
+                <span>Print</span>
+              </button>
+
+              <button
+                onClick={onClose}
+                className="p-1.5 text-slate-400 hover:text-white rounded-lg hover:bg-dark-800 transition-colors"
+                aria-label="Close modal"
+              >
+                <IoClose className="text-xl" />
+              </button>
+            </div>
+          </div>
+
+          {/* Clean ATS Resume Document Body */}
+          <div className="p-6 sm:p-10 overflow-y-auto space-y-6 text-slate-300 font-sans text-xs sm:text-sm bg-dark-950/70">
+            {/* Candidate Header */}
+            <div className="border-b border-slate-800 pb-5">
+              <h1 className="text-2xl sm:text-3xl font-extrabold text-white font-display tracking-tight uppercase">
+                {PERSONAL_INFO.name}
+              </h1>
+              <p className="text-cyber-cyan font-mono text-sm font-medium mt-1">
+                {PERSONAL_INFO.role} • {PERSONAL_INFO.location}
+              </p>
+              <div className="flex flex-wrap gap-4 mt-2 text-xs font-mono text-slate-400">
+                <span>Email: <strong className="text-slate-200">{PERSONAL_INFO.email}</strong></span>
+                <span>GitHub: <strong className="text-slate-200">github.com/kkarthikarthick31</strong></span>
+                <span>LinkedIn: <strong className="text-slate-200">linkedin.com/in/kkarthi2004</strong></span>
               </div>
             </div>
 
-            {/* Resume Content Body */}
-            <div className="p-6 sm:p-10 overflow-y-auto space-y-8 text-slate-300 font-sans text-sm">
-              {/* Header */}
-              <div className="border-b border-slate-800 pb-6">
-                <h1 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  {PERSONAL_INFO.name}
-                </h1>
-                <p className="text-cyber-cyan font-medium text-base mt-1">
-                  {PERSONAL_INFO.title} • {PERSONAL_INFO.location}
-                </p>
-                <div className="flex flex-wrap gap-4 mt-3 text-xs text-slate-400">
-                  <span>Email: <strong className="text-slate-200">{PERSONAL_INFO.email}</strong></span>
-                  <span>LinkedIn: <strong className="text-slate-200">linkedin.com/in/kkarthi2004</strong></span>
-                  <span>GitHub: <strong className="text-slate-200">github.com/kkarthikarthick31</strong></span>
+            {/* Professional Summary */}
+            <div>
+              <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-2">
+                PROFESSIONAL SUMMARY
+              </h2>
+              <p className="text-slate-300 leading-relaxed">
+                {PERSONAL_INFO.aboutSummary}
+              </p>
+            </div>
+
+            {/* Technical Skills */}
+            <div>
+              <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-2">
+                TECHNICAL SKILLS
+              </h2>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono">
+                <div>
+                  <strong className="text-slate-200">Languages:</strong> Java, JavaScript, SQL
+                </div>
+                <div>
+                  <strong className="text-slate-200">Backend:</strong> Spring Boot, Spring MVC, Spring Security, Spring Data JPA, Hibernate, REST APIs, JWT
+                </div>
+                <div>
+                  <strong className="text-slate-200">Frontend:</strong> ReactJS, HTML, CSS, JavaScript
+                </div>
+                <div>
+                  <strong className="text-slate-200">Databases:</strong> MySQL, PostgreSQL, JDBC
+                </div>
+                <div>
+                  <strong className="text-slate-200">Core Concepts:</strong> OOP, Data Structures, Collections, MVC Architecture, Exception Handling
+                </div>
+                <div>
+                  <strong className="text-slate-200">Tools:</strong> Git, GitHub, Postman, Maven, VS Code, Eclipse
                 </div>
               </div>
+            </div>
 
-              {/* Summary */}
-              <div>
-                <h2 className="text-xs font-mono uppercase tracking-widest text-cyber-cyan font-bold mb-2">
-                  // Professional Summary
-                </h2>
-                <p className="text-slate-300 leading-relaxed">
-                  {PERSONAL_INFO.subtext} {PERSONAL_INFO.approach}
-                </p>
-              </div>
-
-              {/* Education */}
-              <div>
-                <h2 className="text-xs font-mono uppercase tracking-widest text-cyber-cyan font-bold mb-2">
-                  // Education
-                </h2>
-                <div className="bg-dark-850 p-4 rounded-xl border border-slate-800">
-                  <div className="flex justify-between items-baseline">
-                    <span className="font-semibold text-white">Master of Computer Applications (MCA)</span>
-                    <span className="text-xs text-cyber-emerald font-mono font-bold">80% Aggregate</span>
+            {/* Internship Experience */}
+            <div>
+              <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-3">
+                INTERNSHIP EXPERIENCE (6 MONTHS TOTAL)
+              </h2>
+              <div className="space-y-4">
+                {[...EXPERIENCE_TIMELINE].reverse().map((exp) => (
+                  <div key={exp.id} className="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+                    <div className="flex flex-wrap items-center justify-between mb-1">
+                      <span className="font-bold text-white text-sm">{exp.role}</span>
+                      <span className="text-xs font-mono text-cyber-cyan">{exp.period}</span>
+                    </div>
+                    <div className="text-xs font-mono text-slate-400 mb-2">
+                      {exp.company} • {exp.location}
+                    </div>
+                    <ul className="list-disc list-inside space-y-1 text-slate-300 text-xs">
+                      {exp.work.map((w, i) => (
+                        <li key={i}>{w}</li>
+                      ))}
+                    </ul>
                   </div>
-                  <p className="text-xs text-slate-400 mt-1">Tamil Nadu, India</p>
-                </div>
-              </div>
-
-              {/* Experience */}
-              <div>
-                <h2 className="text-xs font-mono uppercase tracking-widest text-cyber-cyan font-bold mb-3">
-                  // Work Experience (6 Months Internship)
-                </h2>
-                <div className="space-y-4">
-                  {EXPERIENCE_DATA.map((exp) => (
-                    <div key={exp.id} className="bg-dark-850 p-4 rounded-xl border border-slate-800">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-2">
-                        <div>
-                          <h3 className="font-bold text-white">{exp.role}</h3>
-                          <p className="text-xs text-cyber-blue">{exp.company} • {exp.location}</p>
-                        </div>
-                        <span className="text-xs font-mono text-slate-400 mt-1 sm:mt-0">{exp.period}</span>
-                      </div>
-                      <ul className="list-disc list-inside space-y-1.5 text-xs text-slate-300 mt-3">
-                        {exp.responsibilities.map((resp, i) => (
-                          <li key={i} className="leading-relaxed">{resp}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Featured Projects */}
-              <div>
-                <h2 className="text-xs font-mono uppercase tracking-widest text-cyber-cyan font-bold mb-3">
-                  // Key Projects
-                </h2>
-                <div className="space-y-4">
-                  {FEATURED_PROJECTS.map((proj) => (
-                    <div key={proj.id} className="bg-dark-850 p-4 rounded-xl border border-slate-800">
-                      <div className="flex justify-between items-baseline">
-                        <h3 className="font-bold text-white">{proj.title}</h3>
-                        <span className="text-[11px] font-mono text-cyber-cyan">
-                          {proj.techStack.join(' • ')}
-                        </span>
-                      </div>
-                      <p className="text-xs text-slate-300 mt-1.5">{proj.description}</p>
-                      <ul className="list-disc list-inside space-y-1 text-xs text-slate-400 mt-2">
-                        {proj.features.slice(0, 4).map((f, idx) => (
-                          <li key={idx}>{f}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Certifications & Recognition */}
-              <div>
-                <h2 className="text-xs font-mono uppercase tracking-widest text-cyber-cyan font-bold mb-3">
-                  // Certifications & Honors
-                </h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-                  {ACHIEVEMENTS_DATA.map((ach) => (
-                    <div key={ach.id} className="p-3.5 rounded-xl bg-dark-850 border border-slate-800 text-xs">
-                      <div className="flex justify-between items-start">
-                        <strong className="text-white">{ach.title}</strong>
-                        <span className="px-2 py-0.5 rounded bg-slate-800 text-cyber-cyan font-mono text-[10px]">
-                          {ach.highlight}
-                        </span>
-                      </div>
-                      <p className="text-slate-400 mt-1 text-[11px]">{ach.organization}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Footer */}
-              <div className="pt-4 border-t border-slate-800 text-center text-xs text-slate-500 font-mono">
-                {PERSONAL_INFO.statusBadge}
+                ))}
               </div>
             </div>
-          </motion.div>
-        </div>
-      )}
+
+            {/* Featured Projects */}
+            <div>
+              <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-3">
+                KEY PROJECTS
+              </h2>
+              <div className="space-y-3">
+                {PROJECTS_DATA.map((proj) => (
+                  <div key={proj.id} className="p-3.5 rounded-xl bg-dark-900 border border-slate-800">
+                    <div className="flex flex-wrap items-center justify-between mb-1">
+                      <span className="font-bold text-white text-sm">{proj.title}</span>
+                      <span className="text-xs font-mono text-slate-400">Tech: {proj.techStack.join(', ')}</span>
+                    </div>
+                    <p className="text-xs text-slate-300 mb-2">{proj.description}</p>
+                    <ul className="list-disc list-inside space-y-1 text-slate-400 text-xs">
+                      {proj.features.slice(0, 3).map((f, idx) => (
+                        <li key={idx}>{f}</li>
+                      ))}
+                    </ul>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Education & Certifications */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+              <div>
+                <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-2">
+                  EDUCATION
+                </h2>
+                <div className="space-y-2 text-xs">
+                  {EDUCATION_LIST.map((edu) => (
+                    <div key={edu.degree} className="p-2.5 rounded-lg bg-dark-900 border border-slate-800">
+                      <div className="font-bold text-white">{edu.degree}</div>
+                      <div className="text-slate-400 font-mono">{edu.institution} ({edu.period})</div>
+                      <div className="text-emerald-400 font-mono font-semibold">Score: {edu.score}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div>
+                <h2 className="text-xs font-mono font-bold text-cyber-blue uppercase tracking-widest mb-2">
+                  CERTIFICATIONS & RECOGNITION
+                </h2>
+                <div className="space-y-2 text-xs">
+                  {ACHIEVEMENTS_LIST.map((ach) => (
+                    <div key={ach.id} className="p-2.5 rounded-lg bg-dark-900 border border-slate-800">
+                      <div className="font-bold text-white">{ach.title}</div>
+                      <div className="text-slate-400 font-mono">{ach.organization}</div>
+                      <div className="text-cyber-cyan font-mono">{ach.highlight}</div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+      </div>
     </AnimatePresence>
   );
 }

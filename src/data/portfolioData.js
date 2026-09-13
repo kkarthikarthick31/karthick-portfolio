@@ -1,39 +1,44 @@
-// Centralized portfolio data for Karthick K
-// Strictly derived from Karthick K's resume without invented metrics or claims.
-
-export const CONFIG_PLACEHOLDERS = {
-  LEETCODE_PROFILE_URL: "#",
-  PROJECT_DOWNLOAD_URL: "#download-project",
-  PROJECT_GITHUB_URL: "https://github.com/kkarthikarthick31",
-  INSTAGRAM_URL: "https://instagram.com/",
-  YOUTUBE_URL: "https://youtube.com/",
-  TWITTER_URL: "https://twitter.com/",
-};
+// Centralized, 100% Factual Portfolio Data for Karthick K
+// Strictly derived from Karthick K's verified resume and specifications.
+// Zero invented metrics, companies, awards, or fake repository URLs.
 
 export const PERSONAL_INFO = {
   name: "Karthick K",
-  title: "Java Full Stack Developer",
+  role: "Java Full Stack Developer",
+  shortTitle: "Java Full Stack Developer",
   location: "Tamil Nadu, India",
-  headline: "Building scalable applications from database to interface.",
-  subtext:
-    "Java Full Stack Developer focused on building reliable backend systems, REST APIs, interactive React applications, and practical full-stack solutions.",
-  approach:
-    "From database design to REST APIs and frontend integration, I enjoy building complete application flows.",
   email: "kkarthikarthick31@gmail.com",
   github: "https://github.com/kkarthikarthick31",
   linkedin: "https://linkedin.com/in/kkarthi2004",
-  statusBadge: "Available for entry-level Full Stack Developer opportunities",
+  profileImage: "/profile.jpeg",
+  resumeFile: "/resume.pdf",
+  statusBadge: "AVAILABLE FOR OPPORTUNITIES",
+  availabilityText: "Open to entry-level Java Full Stack Developer opportunities",
+  
+  heroHeadline: "BUILDING THE WEB FROM API TO INTERFACE.",
+  heroSupporting:
+    "Building full-stack applications with Java, Spring Boot, React, REST APIs and relational databases.",
+  
+  positioning:
+    "A practical Java Full Stack Developer who builds across the complete application stack.",
+  
+  aboutSummary:
+    "Java Full Stack Developer with 6 months of internship experience building full-stack applications end to end using Java, Spring Boot, REST APIs, MySQL and ReactJS. Experienced in application architecture, backend services, RESTful endpoint development, database modeling, and frontend integration across Agile sprints.",
+  
   coreStack: [
     "Java",
     "Spring Boot",
     "ReactJS",
     "MySQL",
     "REST APIs",
-    "Blockchain",
+    "Spring Data JPA",
+    "Hibernate",
+    "JavaScript",
+    "Git",
   ],
 };
 
-export const STATS = [
+export const QUICK_STATS = [
   {
     id: 1,
     value: "6 Months",
@@ -43,674 +48,411 @@ export const STATS = [
   {
     id: 2,
     value: "2",
-    label: "Major Projects",
-    sublabel: "Inventory & food traceability",
+    label: "Featured Projects",
+    sublabel: "Inventory & Food Traceability",
   },
   {
     id: 3,
     value: "Top SQL 50",
-    label: "LeetCode",
-    sublabel: "SQL problem-solving practice",
+    label: "LeetCode Practice",
+    sublabel: "SQL query & optimization",
   },
   {
     id: 4,
     value: "80%",
-    label: "MCA",
-    sublabel: "Master of Computer Applications",
+    label: "MCA Degree",
+    sublabel: "Dhanalakshmi Srinivasan Univ.",
   },
   {
     id: 5,
-    value: "Full Stack",
-    label: "Java Specialization",
-    sublabel: "Spring Boot + ReactJS",
+    value: "71%",
+    label: "NPTEL Java",
+    sublabel: "Programming in Java",
   },
 ];
 
-export const SKILLS_DATA = {
-  languages: {
-    title: "Languages",
+export const WHY_KARTHICK_CARDS = [
+  {
+    id: "01",
+    title: "FULL-STACK EXPERIENCE",
+    highlight: "Complete Application Flow",
     description:
-      "Programming and querying languages used across full-stack development.",
-    skills: [
-      {
-        name: "Java",
-        level: "Core & OOP",
-        desc: "Object-oriented programming, Collections, and Java fundamentals",
-        icon: "SiOpenjdk",
-      },
-      {
-        name: "JavaScript",
-        level: "Frontend Development",
-        desc: "JavaScript fundamentals for frontend development",
-        icon: "SiJavascript",
-      },
-      {
-        name: "SQL",
-        level: "Querying",
-        desc: "Joins, subqueries, ranking, CTEs, and query optimization",
-        icon: "SiMysql",
-      },
-    ],
+      "Built applications across frontend, backend and database layers with seamless API communication and data persistence.",
+    tag: "End-to-End Development",
+    iconName: "TbLayersLinked",
   },
+  {
+    id: "02",
+    title: "JAVA BACKEND",
+    highlight: "Enterprise Frameworks",
+    description:
+      "Spring Boot, REST APIs, Spring Data JPA, Hibernate, and core Java concepts including OOP, Collections, and Exception Handling.",
+    tag: "Spring Boot & JPA",
+    iconName: "TbServer2",
+  },
+  {
+    id: "03",
+    title: "REAL PROJECT EXPERIENCE",
+    highlight: "Practical Problem Solving",
+    description:
+      "Engineered an Inventory Management System and core modules for a blockchain-based Food Traceability System.",
+    tag: "Production Systems",
+    iconName: "TbCpu",
+  },
+  {
+    id: "04",
+    title: "PROBLEM SOLVING",
+    highlight: "Database & Logic Mastery",
+    description:
+      "LeetCode Top SQL 50 completed and practical relational database design and API testing with Postman.",
+    tag: "SQL & API Testing",
+    iconName: "TbDatabaseSearch",
+  },
+];
 
-  backend: {
-    title: "Backend",
-    description:
-      "Java frameworks and technologies used for backend and API development.",
-    skills: [
-      {
-        name: "Spring Boot",
-        level: "Backend Development",
-        desc: "Dependency injection, auto-configuration, and REST API development",
-        icon: "SiSpringboot",
-      },
-      {
-        name: "Spring MVC",
-        level: "Web Development",
-        desc: "Spring-based web application development",
-        icon: "SiSpring",
-      },
-      {
-        name: "Spring Security",
-        level: "Security",
-        desc: "Authentication and authorization",
-        icon: "SiSpring",
-      },
-      {
-        name: "Spring Data JPA",
-        level: "Persistence",
-        desc: "Data access and persistence with Spring",
-        icon: "SiHibernate",
-      },
-      {
-        name: "Hibernate",
-        level: "ORM",
-        desc: "Object-relational mapping for Java applications",
-        icon: "SiHibernate",
-      },
-      {
-        name: "REST APIs",
-        level: "API Development",
-        desc: "REST API development and integration",
-        icon: "TbApi",
-      },
-      {
-        name: "JWT",
-        level: "Authentication",
-        desc: "JWT-based authentication",
-        icon: "SiJsonwebtokens",
-      },
-    ],
+export const PROOF_POINTS = [
+  {
+    skill: "JAVA",
+    proof: "USED IN PROJECTS",
+    detail: "Core language for backend controllers, business services, OOP models, and blockchain modules.",
+    category: "Languages",
   },
+  {
+    skill: "SPRING BOOT",
+    proof: "USED IN PROJECTS",
+    detail: "Built REST API endpoints, service layer, dependency injection, and CRUD operations at Crud Academy.",
+    category: "Backend",
+  },
+  {
+    skill: "REACTJS",
+    proof: "USED IN PROJECTS",
+    detail: "Built responsive client interface, stock management views, and interactive state management.",
+    category: "Frontend",
+  },
+  {
+    skill: "MYSQL",
+    proof: "USED IN PROJECTS",
+    detail: "Designed schemas, modeled product and transaction data at Top Tech Developers & Crud Academy.",
+    category: "Database",
+  },
+  {
+    skill: "REST APIS",
+    proof: "USED IN PROJECTS",
+    detail: "Developed CRUD endpoints, verified payload formats, status codes, and tested via Postman.",
+    category: "Backend",
+  },
+  {
+    skill: "SQL",
+    proof: "LEETCODE + PROJECT EXPERIENCE",
+    detail: "LeetCode Top SQL 50 completed; complex queries, joins, filtering, and database persistence.",
+    category: "Database",
+  },
+];
 
-  frontend: {
-    title: "Frontend",
-    description:
-      "Frontend technologies used to build interactive web interfaces.",
-    skills: [
-      {
-        name: "ReactJS",
-        level: "Frontend Development",
-        desc: "Component-based frontend development",
-        icon: "SiReact",
-      },
-      {
-        name: "HTML",
-        level: "HTML5",
-        desc: "Web page structure and markup",
-        icon: "SiHtml5",
-      },
-      {
-        name: "CSS",
-        level: "CSS3",
-        desc: "Web styling and responsive interface development",
-        icon: "SiCss3",
-      },
-    ],
-  },
-
-  databases: {
-    title: "Databases",
-    description:
-      "Database technologies used for relational data storage and application development.",
-    skills: [
-      {
-        name: "MySQL",
-        level: "Relational Database",
-        desc: "Relational database design and data management",
-        icon: "SiMysql",
-      },
-      {
-        name: "PostgreSQL",
-        level: "Relational Database",
-        desc: "Relational database management",
-        icon: "SiPostgresql",
-      },
-      {
-        name: "JDBC",
-        level: "Database Connectivity",
-        desc: "Java database connectivity",
-        icon: "TbDatabase",
-      },
-    ],
-  },
-
-  coreConcepts: {
-    title: "Core Concepts",
-    description:
-      "Core programming, architecture, and application development concepts.",
-    skills: [
-      {
-        name: "OOP",
-        desc: "Encapsulation, inheritance, polymorphism, and abstraction",
-        icon: "TbCode",
-      },
-      {
-        name: "Data Structures",
-        desc: "Fundamental data structure concepts",
-        icon: "TbBinaryTree",
-      },
-      {
-        name: "Collections",
-        desc: "Java Collections Framework",
-        icon: "TbHierarchy",
-      },
-      {
-        name: "MVC Architecture",
-        desc: "Model, View, and Controller architecture",
-        icon: "TbLayoutGrid",
-      },
-      {
-        name: "Exception Handling",
-        desc: "Exception handling and custom exceptions",
-        icon: "TbShieldAlert",
-      },
-      {
-        name: "Authentication",
-        desc: "Application authentication concepts",
-        icon: "TbLock",
-      },
-      {
-        name: "Authorization",
-        desc: "Application authorization concepts",
-        icon: "TbKey",
-      },
-    ],
-  },
-
-  tools: {
-    title: "Tools & DevOps",
-    description:
-      "Development, version control, API testing, and build tools.",
-    skills: [
-      {
-        name: "Git",
-        desc: "Version control",
-        icon: "SiGit",
-      },
-      {
-        name: "GitHub",
-        desc: "Code hosting and repository management",
-        icon: "SiGithub",
-      },
-      {
-        name: "Postman",
-        desc: "API endpoint testing",
-        icon: "SiPostman",
-      },
-      {
-        name: "Maven",
-        desc: "Java build and dependency management",
-        icon: "SiApachemaven",
-      },
-      {
-        name: "VS Code",
-        desc: "Code editor and development environment",
-        icon: "SiVisualstudiocode",
-      },
-      {
-        name: "Eclipse",
-        desc: "Java development environment",
-        icon: "SiEclipseide",
-      },
-    ],
-  },
+export const TECHNICAL_SKILLS = {
+  languages: [
+    { name: "Java", role: "Core backend language & OOP", whereUsed: "Both Projects & Internships" },
+    { name: "JavaScript", role: "Frontend scripting & client logic", whereUsed: "ReactJS Applications" },
+    { name: "SQL", role: "Relational queries, joins, aggregations", whereUsed: "LeetCode Top SQL 50 & MySQL" },
+  ],
+  backend: [
+    { name: "Spring Boot", role: "Microservice & REST API architecture", whereUsed: "Inventory System" },
+    { name: "Spring MVC", role: "Model-View-Controller design pattern", whereUsed: "Web Application Flow" },
+    { name: "Spring Security", role: "Authentication & access control", whereUsed: "Application Security" },
+    { name: "Spring Data JPA", role: "Automated data repositories", whereUsed: "Database Persistence" },
+    { name: "Hibernate", role: "Object-Relational Mapping (ORM)", whereUsed: "Entity Relationships" },
+    { name: "REST APIs", role: "Standardized HTTP endpoints", whereUsed: "API Layer & Postman" },
+    { name: "JWT", role: "Token-based secure authentication", whereUsed: "Auth Workflows" },
+  ],
+  frontend: [
+    { name: "ReactJS", role: "Component UI & single-page architecture", whereUsed: "Inventory Client App" },
+    { name: "HTML", role: "Semantic markup & structure", whereUsed: "Web Interfaces" },
+    { name: "CSS", role: "Responsive styling & layouts", whereUsed: "Frontend Styling" },
+    { name: "JavaScript", role: "Client interactions & state updates", whereUsed: "Web Frontend" },
+  ],
+  database: [
+    { name: "MySQL", role: "Relational schema design & indexing", whereUsed: "Both Internships" },
+    { name: "PostgreSQL", role: "Enterprise relational database", whereUsed: "Data Management" },
+    { name: "JDBC", role: "Java Database Connectivity layer", whereUsed: "Direct Database Access" },
+  ],
+  coreConcepts: [
+    { name: "OOP", role: "Encapsulation, inheritance, polymorphism", whereUsed: "Java Architecture" },
+    { name: "Data Structures", role: "Memory-efficient data organization", whereUsed: "Algorithmic Logic" },
+    { name: "Collections", role: "Lists, Sets, Maps, and Iterators", whereUsed: "Data Processing" },
+    { name: "MVC Architecture", role: "Clean separation of concerns", whereUsed: "Spring Framework" },
+    { name: "Exception Handling", role: "Robust error recovery & logging", whereUsed: "API Endpoints" },
+    { name: "Authentication & Authorization", role: "Role-based access verification", whereUsed: "Security Layer" },
+  ],
+  tools: [
+    { name: "Git", role: "Distributed version control", whereUsed: "Version Tracking" },
+    { name: "GitHub", role: "Remote repository & code management", whereUsed: "github.com/kkarthikarthick31" },
+    { name: "Postman", role: "API endpoint testing & validation", whereUsed: "API Verification" },
+    { name: "Maven", role: "Java dependency & build automation", whereUsed: "Spring Boot Projects" },
+    { name: "VS Code", role: "Frontend & full-stack development", whereUsed: "Development IDE" },
+    { name: "Eclipse", role: "Java IDE & Spring tooling", whereUsed: "Backend Development" },
+  ],
 };
 
-export const EXPERIENCE_DATA = [
+export const ECOSYSTEM_NODES = [
+  { id: "java", name: "Java", role: "Core Language", category: "center", level: 1 },
+  { id: "springboot", name: "Spring Boot", role: "Backend Core", category: "backend", connectsTo: ["java", "restapis", "jpa"] },
+  { id: "restapis", name: "REST APIs", role: "API Layer", category: "backend", connectsTo: ["springboot", "react", "postman"] },
+  { id: "react", name: "ReactJS", role: "Frontend Interface", category: "frontend", connectsTo: ["restapis", "javascript"] },
+  { id: "mysql", name: "MySQL", role: "Relational Database", category: "database", connectsTo: ["jpa", "hibernate", "jdbc"] },
+  { id: "jpa", name: "Spring Data JPA", role: "Persistence", category: "backend", connectsTo: ["springboot", "mysql", "hibernate"] },
+  { id: "hibernate", name: "Hibernate", role: "ORM Layer", category: "backend", connectsTo: ["mysql", "jpa"] },
+  { id: "security", name: "Spring Security", role: "Security Layer", category: "backend", connectsTo: ["springboot", "jwt"] },
+  { id: "jwt", name: "JWT", role: "Token Auth", category: "backend", connectsTo: ["security", "restapis"] },
+  { id: "postgresql", name: "PostgreSQL", role: "Database", category: "database", connectsTo: ["jpa", "jdbc"] },
+  { id: "jdbc", name: "JDBC", role: "DB Connectivity", category: "database", connectsTo: ["java", "mysql"] },
+  { id: "javascript", name: "JavaScript", role: "Client Scripting", category: "frontend", connectsTo: ["react"] },
+  { id: "postman", name: "Postman", role: "API Testing", category: "tool", connectsTo: ["restapis"] },
+  { id: "git", name: "Git", role: "Version Control", category: "tool", connectsTo: ["github"] },
+  { id: "github", name: "GitHub", role: "Code Hosting", category: "tool", connectsTo: ["java", "react"] },
+];
+
+export const PROJECTS_DATA = [
   {
-    id: 1,
-    role: "Software Development Intern",
-    company: "Top Tech Developers",
-    location: "Chennai, India",
-    period: "January 2026 – April 2026",
-    duration: "4 Months",
-    type: "Internship",
-
+    id: "inventory-management",
+    title: "Inventory Management System",
+    eyebrow: "PROJECT 01 — FULL STACK APPLICATION",
+    role: "Full Stack Developer",
+    subtitle: "Stock Tracking & CRUD Operations with Java, Spring Boot, ReactJS & MySQL",
+    problem:
+      "Businesses require real-time visibility into inventory quantities, automated stock level validation, and seamless CRUD operations without database inconsistency.",
+    solution:
+      "Engineered an end-to-end full-stack web application combining a reactive ReactJS client with a Spring Boot REST API layer, JPA/Hibernate ORM, and transactional MySQL persistence.",
     description:
-      "Built core modules of a blockchain-based Farmer-to-Consumer Food Traceability System using Java and MySQL.",
-
-    responsibilities: [
-      "Built core modules of a blockchain-based Farmer-to-Consumer Food Traceability System.",
-      "Worked with Java and MySQL for backend development and data management.",
-      "Worked on supplier management workflows.",
-      "Worked on buyer verification workflows.",
-      "Worked with MySQL database schemas for the traceability system.",
-      "Collaborated with a cross-functional team.",
+      "A full-stack inventory management application for product management, stock tracking and CRUD operations.",
+    features: [
+      "Product management (create, update, view, remove items)",
+      "Stock tracking and real-time inventory updates",
+      "Robust CRUD operations with transaction safety",
+      "RESTful API architecture following clean MVC standards",
+      "Relational persistence using MySQL and Spring Data JPA / Hibernate",
+      "Responsive ReactJS frontend interface",
+      "Thorough endpoint testing and payload validation via Postman",
     ],
-
+    techStack: [
+      "Java",
+      "Spring Boot",
+      "ReactJS",
+      "MySQL",
+      "REST APIs",
+      "Git",
+    ],
+    architecture: [
+      {
+        step: 1,
+        layer: "ReactJS",
+        name: "Frontend Client Interface",
+        detail: "Interactive dashboard providing stock monitoring, product catalog tables, and client-side form validation.",
+        icon: "react",
+        highlight: "Component UI & State",
+      },
+      {
+        step: 2,
+        layer: "REST APIs",
+        name: "Standardized HTTP Endpoint Layer",
+        detail: "Structured JSON request/response payloads, HTTP method mapping (GET, POST, PUT, DELETE), and status codes.",
+        icon: "api",
+        highlight: "Payload & Route Validation",
+      },
+      {
+        step: 3,
+        layer: "Spring Boot",
+        name: "Backend Application Core",
+        detail: "Dependency injection, controller routing, business service logic, and custom exception handling.",
+        icon: "spring",
+        highlight: "Business Logic & Services",
+      },
+      {
+        step: 4,
+        layer: "Spring Data JPA / Hibernate",
+        name: "ORM & Data Access Layer",
+        detail: "Object-Relational Mapping between Java entities and database tables, automated queries, and transaction control.",
+        icon: "database",
+        highlight: "Entity Mapping & Repositories",
+      },
+      {
+        step: 5,
+        layer: "MySQL",
+        name: "Relational Database Persistence",
+        detail: "Normalized tables for products, inventory stock counts, audit fields, and relational constraints.",
+        icon: "mysql",
+        highlight: "ACID Transactions & Storage",
+      },
+    ],
+    githubProfileUrl: "https://github.com/kkarthikarthick31/inventory-management-system",
+    hasCodeOnGithub: true,
+  },
+  {
+    id: "food-traceability",
+    title: "Farmer → Consumer Food Traceability System",
+    eyebrow: "PROJECT 02 — BLOCKCHAIN & JAVA SYSTEM",
+    role: "Software Development Intern",
+    subtitle: "Blockchain-Based Agricultural Supply Chain Tracking with Java & MySQL",
+    problem:
+      "Traditional food supply chains suffer from lack of transparency, difficulty in tracing origin, and counterfeit records between farmers, intermediaries, and buyers.",
+    solution:
+      "Developed core modules of a blockchain-based traceability system utilizing cryptographic transaction blocks, supplier management workflows, and MySQL relational persistence.",
+    description:
+      "A blockchain-based system designed to track products through the supply chain from farmers to consumers.",
+    features: [
+      "Supplier management workflows for onboarding and verification",
+      "Buyer verification workflows for validated transaction handoffs",
+      "Product tracking from agricultural origin to end consumer",
+      "Immutable transaction block data recording custody changes",
+      "Blockchain-based traceability logic implemented in Java",
+      "Normalized MySQL database storing product schemas and audit records",
+    ],
     techStack: [
       "Java",
       "Blockchain",
       "MySQL",
       "Git",
     ],
-
-    badgeColor: "cyan",
+    blockchainNodes: [
+      {
+        id: "farmer",
+        name: "FARMER",
+        role: "Origin & Crop Batch Genesis",
+        desc: "Registers harvest lot, farm geolocation, timestamp, and product identity at origin.",
+        accent: "#00F0FF",
+      },
+      {
+        id: "supplier",
+        name: "SUPPLIER",
+        role: "Supplier Management Workflow",
+        desc: "Validates supplier credentials, processes intake logistics, and signs custody transfer.",
+        accent: "#38BDF8",
+      },
+      {
+        id: "product",
+        name: "PRODUCT",
+        role: "Product Record & Specifications",
+        desc: "Maintains immutable item specifications, packaging metadata, and batch identifiers.",
+        accent: "#818CF8",
+      },
+      {
+        id: "transaction",
+        name: "TRANSACTION",
+        role: "Cryptographic Block Ledger",
+        desc: "Cryptographically records timestamped change-of-custody transactions into the chain.",
+        accent: "#A78BFA",
+      },
+      {
+        id: "buyer",
+        name: "BUYER",
+        role: "Buyer Verification Workflow",
+        desc: "Verifies wholesale/retail buyer authentication and approves product receipt.",
+        accent: "#C084FC",
+      },
+      {
+        id: "consumer",
+        name: "CONSUMER",
+        role: "End-to-End Verification",
+        desc: "Enables end consumer to scan product ID and trace complete verified journey back to farmer.",
+        accent: "#34D399",
+      },
+    ],
+    githubProfileUrl: "https://github.com/kkarthikarthick31/Farmer-to-Consumer-Food-Traceability-System-Blockchain",
+    hasCodeOnGithub: true,
   },
+];
 
+export const EXPERIENCE_TIMELINE = [
   {
-    id: 2,
+    id: 1,
+    year: "2025",
     role: "Java Full Stack Development Intern",
-    company: "Crud Academy",
-    location: "Karur, India",
+    company: "CRUD Academy",
+    location: "Coimbatore, Tamil Nadu, India",
     period: "April 2025 – May 2025",
     duration: "2 Months",
     type: "Internship",
-
-    description:
-      "Developed REST APIs and CRUD functionality using Spring Boot, Java, and MySQL.",
-
-    responsibilities: [
-      "Implemented REST APIs using Spring Boot and Java.",
-      "Developed CRUD operations for the inventory management application.",
-      "Integrated Spring Boot APIs with MySQL.",
-      "Worked with Hibernate and Spring Data JPA.",
-      "Tested API endpoints using Postman.",
-      "Worked in an Agile development environment.",
+    recognition: "Full-stack application delivery & API integration",
+    work: [
+      "Implemented REST APIs in Spring Boot for inventory management.",
+      "Implemented CRUD operations and integrated API layer with MySQL.",
+      "Worked with Spring Data JPA and Hibernate for database persistence.",
+      "Tested endpoint behavior and verified HTTP response codes using Postman.",
+      "Worked in Agile development across sprint planning, development, and testing.",
     ],
-
-    techStack: [
-      "Java",
-      "Spring Boot",
-      "MySQL",
-      "REST APIs",
-      "Postman",
-      "Agile",
-    ],
-
-    badgeColor: "purple",
+    techStack: ["Java", "Spring Boot", "MySQL", "REST APIs", "Postman", "Agile"],
   },
-];
-
-export const FEATURED_PROJECTS = [
-  {
-    id: "inventory-management",
-
-    title: "Inventory Management System",
-
-    subtitle: "Stock Tracking & Full-Stack CRUD Application",
-
-    description:
-      "Full-stack application for product management, stock tracking, and CRUD operations using Java, Spring Boot, ReactJS, and MySQL.",
-
-    features: [
-      "Product management",
-      "Stock tracking",
-      "CRUD operations",
-      "REST API development",
-      "MySQL database integration",
-      "ReactJS frontend interface",
-      "API testing with Postman",
-    ],
-
-    techStack: [
-      "Java",
-      "Spring Boot",
-      "ReactJS",
-      "MySQL",
-      "REST APIs",
-      "Git",
-    ],
-
-    accentColor: "cyan",
-
-    githubUrl:
-      "https://github.com/kkarthikarthick31/inventory-management-system",
-
-    demoUrl: CONFIG_PLACEHOLDERS.PROJECT_DOWNLOAD_URL,
-  },
-
-  {
-    id: "food-traceability",
-
-    title: "Farmer-to-Consumer Food Traceability System",
-
-    subtitle: "Blockchain-Based Agricultural Supply Chain Tracking",
-
-    description:
-      "Blockchain-based system for tracking products from farmers to consumers with supplier management and buyer verification workflows.",
-
-    features: [
-      "Farmer-to-consumer product tracking",
-      "Supplier management",
-      "Buyer verification workflows",
-      "Product and transaction data tracking",
-      "MySQL database integration",
-    ],
-
-    techStack: [
-      "Java",
-      "Blockchain",
-      "MySQL",
-    ],
-
-    accentColor: "emerald",
-
-    githubUrl:
-      "https://github.com/kkarthikarthick31/Farmer-to-Consumer-Food-Traceability-System-Blockchain",
-
-    demoUrl: CONFIG_PLACEHOLDERS.PROJECT_DOWNLOAD_URL,
-
-    supplyChainStages: [
-      {
-        id: 1,
-        name: "Farmer",
-        role: "Origin",
-        detail: "Product and harvest information",
-      },
-      {
-        id: 2,
-        name: "Supplier",
-        role: "Supply Chain",
-        detail: "Supplier management",
-      },
-      {
-        id: 3,
-        name: "Verification",
-        role: "Verification",
-        detail: "Buyer verification",
-      },
-      {
-        id: 4,
-        name: "Product",
-        role: "Product Data",
-        detail: "Product and transaction information",
-      },
-      {
-        id: 5,
-        name: "Consumer",
-        role: "End User",
-        detail: "Farmer-to-consumer tracking",
-      },
-    ],
-  },
-];
-
-export const DOWNLOADABLE_PROJECTS = [
-  {
-    id: "dl-inventory",
-
-    title: "Inventory Management System",
-
-    type: "Full Stack Web Application",
-
-    description:
-      "Full-stack repository containing the Spring Boot backend, ReactJS client application, and MySQL-based application code.",
-
-    techStack: [
-      "Java",
-      "Spring Boot",
-      "ReactJS",
-      "MySQL",
-    ],
-
-    downloadUrl:
-      "https://github.com/kkarthikarthick31/inventory-management-system",
-
-    githubUrl:
-      "https://github.com/kkarthikarthick31/inventory-management-system",
-
-    fileSize: "GitHub Repository",
-
-    version: "Repository",
-  },
-
-  {
-    id: "dl-traceability",
-
-    title: "Farmer-to-Consumer Food Traceability System",
-
-    type: "Blockchain & Java Application",
-
-    description:
-      "Source repository for the blockchain-based farmer-to-consumer food traceability system with Java and MySQL.",
-
-    techStack: [
-      "Java",
-      "Blockchain",
-      "MySQL",
-    ],
-
-    downloadUrl:
-      "https://github.com/kkarthikarthick31/Farmer-to-Consumer-Food-Traceability-System-Blockchain",
-
-    githubUrl:
-      "https://github.com/kkarthikarthick31/Farmer-to-Consumer-Food-Traceability-System-Blockchain",
-
-    fileSize: "GitHub Repository",
-
-    version: "Repository",
-  },
-];
-
-export const ARTICLES_DATA = [
-  {
-    id: 1,
-    title: "Spring Boot REST API Development",
-    category: "Backend Architecture",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering REST API development with Spring Boot, including controller, service, and exception-handling concepts.",
-    tags: [
-      "Spring Boot",
-      "Java",
-      "REST APIs",
-    ],
-  },
-
   {
     id: 2,
-    title: "React + Spring Boot Integration",
-    category: "Full Stack Engineering",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering integration between ReactJS frontend applications and Spring Boot backend APIs.",
-    tags: [
-      "ReactJS",
-      "Spring Boot",
-      "Full Stack",
+    year: "2026",
+    role: "Software Development Intern",
+    company: "Top Tech Developers",
+    location: "Chennai, Tamil Nadu, India",
+    period: "January 2026 – April 2026",
+    duration: "4 Months",
+    type: "Internship",
+    recognition: "Recognized by Managing Director for internship performance",
+    work: [
+      "Built core modules of a blockchain-based Farmer-to-Consumer Food Traceability System using Java and MySQL.",
+      "Designed and implemented supplier management and buyer verification workflows.",
+      "Modeled and maintained the MySQL schema for product and transaction data.",
+      "Collaborated with a cross-functional team through daily development and testing cycles.",
     ],
-  },
-
-  {
-    id: 3,
-    title: "MySQL Database Design & Query Optimization",
-    category: "Database Systems",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering relational database design, SQL querying, and query optimization concepts using MySQL.",
-    tags: [
-      "MySQL",
-      "SQL",
-      "Database Design",
-    ],
-  },
-
-  {
-    id: 4,
-    title: "JWT Authentication & Spring Security",
-    category: "Security",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering authentication and authorization concepts using JWT and Spring Security.",
-    tags: [
-      "Spring Security",
-      "JWT",
-      "Authentication",
-    ],
-  },
-
-  {
-    id: 5,
-    title: "Full Stack Application Architecture",
-    category: "System Design",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering application development from database design and REST APIs to frontend integration.",
-    tags: [
-      "Full Stack",
-      "Software Architecture",
-      "Java",
-    ],
-  },
-
-  {
-    id: 6,
-    title: "Blockchain Food Traceability Mechanics",
-    category: "Blockchain",
-    readTime: "Upcoming Technical Writeup",
-    excerpt:
-      "Planned writeup covering the concepts behind blockchain-based food traceability from farmer to consumer.",
-    tags: [
-      "Blockchain",
-      "Java",
-      "Traceability",
-    ],
+    techStack: ["Java", "Blockchain", "MySQL", "Git"],
   },
 ];
 
-export const CODING_PROFILE = {
-  platform: "LeetCode",
-
-  badge: "Top SQL 50",
-
-  title: "LeetCode Top SQL 50",
-
-  summary:
-    "LeetCode Top SQL 50 practice covering joins, subqueries, window functions, aggregation, ranking, CTEs, and query optimization.",
-
-  profileUrl: CONFIG_PLACEHOLDERS.LEETCODE_PROFILE_URL,
-
-  topics: [
-    {
-      name: "Joins",
-      desc: "SQL joins and combining data from multiple tables",
-    },
-    {
-      name: "Subqueries",
-      desc: "Subqueries for filtering and data retrieval",
-    },
-    {
-      name: "Window Functions",
-      desc: "Window functions for ranking and analytical queries",
-    },
-    {
-      name: "Aggregation",
-      desc: "Grouping and aggregate functions",
-    },
-    {
-      name: "Ranking",
-      desc: "Ranking and ordered query results",
-    },
-    {
-      name: "CTEs",
-      desc: "Common Table Expressions",
-    },
-    {
-      name: "Query Optimization",
-      desc: "SQL query optimization concepts",
-    },
-  ],
-
-  statsBadge: "Top SQL 50",
-};
-
-export const ACHIEVEMENTS_DATA = [
+export const ACHIEVEMENTS_LIST = [
   {
-    id: 1,
-
+    id: "leetcode",
     title: "LeetCode Top SQL 50",
-
+    badge: "TOP SQL 50",
     organization: "LeetCode",
-
-    date: "Top SQL 50",
-
-    highlight: "SQL Problem Solving",
-
-    description:
-      "Completed LeetCode Top SQL 50 practice covering joins, subqueries, window functions, aggregation, ranking, CTEs, and query optimization.",
-
-    badge: "SQL 50",
-
-    color: "cyan",
+    category: "SQL Problem Solving",
+    highlight: "Completed Top SQL 50",
+    detail:
+      "Mastered SQL querying, complex multi-table joins, subqueries, CTEs, aggregation, window functions, and query optimization.",
+    accent: "cyan",
   },
-
   {
-    id: 2,
-
+    id: "nptel",
     title: "Programming in Java",
-
+    badge: "71% SCORE",
     organization: "NPTEL",
-
-    date: "Course Certification",
-
-    highlight: "Java Certification",
-
-    description:
-      "Completed the NPTEL course Programming in Java.",
-
-    badge: "Java",
-
-    color: "purple",
+    category: "Certification",
+    highlight: "Scored 71%",
+    detail:
+      "Rigorous certification in object-oriented programming, data structures, multithreading, collections framework, and core Java concepts.",
+    accent: "blue",
   },
-
   {
-    id: 3,
-
+    id: "md-award",
     title: "Managing Director Recognition",
-
+    badge: "PERFORMANCE RECOGNITION",
     organization: "Top Tech Developers, Chennai",
-
-    date: "Internship Recognition",
-
-    highlight: "Internship Performance",
-
-    description:
-      "Recognized by the Managing Director at Top Tech Developers for internship performance.",
-
-    badge: "Recognition",
-
-    color: "amber",
+    category: "Internship Honor",
+    highlight: "Recognized by MD",
+    detail:
+      "Formally recognized by the Managing Director for technical contributions, blockchain module development, and dependable internship execution.",
+    accent: "purple",
   },
+];
 
+export const EDUCATION_LIST = [
   {
-    id: 4,
-
-    title: "Java Full Stack Project Completion",
-
-    organization: "Top Tech Developers",
-
-    date: "Project Completion",
-
-    highlight: "Full Stack Project",
-
-    description:
-      "Completed a Java Full Stack project based on the blockchain-based Farmer-to-Consumer Food Traceability System.",
-
-    badge: "Completed",
-
-    color: "emerald",
+    degree: "MCA (Master of Computer Applications)",
+    institution: "Dhanalakshmi Srinivasan University",
+    period: "2024 – 2026",
+    score: "80%",
+    status: "Currently Completing",
+    highlights: "Advanced Software Engineering, Database Systems, Java Frameworks",
+  },
+  {
+    degree: "BCA (Bachelor of Computer Applications)",
+    institution: "SRM University, Chennai",
+    period: "2021 – 2024",
+    score: "78%",
+    status: "Completed",
+    highlights: "Computer Science Fundamentals, Data Structures, OOP, Web Development",
   },
 ];
 
@@ -719,53 +461,18 @@ export const SOCIAL_LINKS = [
     name: "GitHub",
     url: PERSONAL_INFO.github,
     handle: "github.com/kkarthikarthick31",
-    icon: "SiGithub",
-    color: "#38bdf8",
-    active: true,
+    label: "Explore Code",
   },
-
   {
     name: "LinkedIn",
     url: PERSONAL_INFO.linkedin,
     handle: "linkedin.com/in/kkarthi2004",
-    icon: "SiLinkedin",
-    color: "#0a66c2",
-    active: true,
+    label: "Connect Professionally",
   },
-
   {
     name: "Email",
     url: `mailto:${PERSONAL_INFO.email}`,
     handle: PERSONAL_INFO.email,
-    icon: "MdEmail",
-    color: "#a855f7",
-    active: true,
-  },
-
-  {
-    name: "Instagram",
-    url: CONFIG_PLACEHOLDERS.INSTAGRAM_URL,
-    handle: "INSTAGRAM_URL",
-    icon: "SiInstagram",
-    color: "#e1306c",
-    active: false,
-  },
-
-  {
-    name: "YouTube",
-    url: CONFIG_PLACEHOLDERS.YOUTUBE_URL,
-    handle: "YOUTUBE_URL",
-    icon: "SiYoutube",
-    color: "#ff0000",
-    active: false,
-  },
-
-  {
-    name: "Twitter/X",
-    url: CONFIG_PLACEHOLDERS.TWITTER_URL,
-    handle: "TWITTER_URL",
-    icon: "SiX",
-    color: "#1da1f2",
-    active: false,
+    label: "Send Direct Email",
   },
 ];

@@ -1,100 +1,121 @@
-import React from 'react';
+import React, { useState } from 'react';
 import CustomCursor from './components/CustomCursor';
 import ParticleBackground from './components/ParticleBackground';
-import SQLConsole from './components/SQLConsole';
+import LoadingScreen from './components/LoadingScreen';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import About from './components/About';
 import Skills from './components/Skills';
-import Experience from './components/Experience';
 import Projects from './components/Projects';
-import ProjectDownloads from './components/ProjectDownloads';
-import Articles from './components/Articles';
-import CodingProfiles from './components/CodingProfiles';
+import Experience from './components/Experience';
 import Achievements from './components/Achievements';
+import CinematicTransition from './components/CinematicTransition';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
+import HRQuickViewModal from './components/HRQuickViewModal';
+import RecruiterHelper from './components/RecruiterHelper';
+import ResumeModal from './components/ResumeModal';
 import { useScrollSpy } from './hooks/useScrollSpy';
 
 const SECTION_IDS = [
   'hero',
   'about',
   'skills',
-  'experience',
   'projects',
-  'articles',
-  'coding',
+  'experience',
   'achievements',
   'contact',
 ];
 
 export default function App() {
-  const activeSection = useScrollSpy(SECTION_IDS, 180);
+  const activeSection = useScrollSpy(SECTION_IDS, 160);
+  const [hrViewOpen, setHrViewOpen] = useState(false);
+  const [resumeModalOpen, setResumeModalOpen] = useState(false);
 
-  // Navbar Resume → Open/View resume in a new tab
-  const openResume = () => {
-    window.open('/resume.pdf', '_blank');
-  };
-
-  // Hero Download Resume → Directly download resume
+  // Directly download the verified resume file
   const downloadResume = () => {
     const link = document.createElement('a');
-
     link.href = '/resume.pdf';
     link.download = 'Karthick_K_Resume.pdf';
-
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
+  // Open the interactive ATS resume viewer modal
+  const openResumeModal = () => {
+    setResumeModalOpen(true);
+  };
+
   return (
     <div className="relative min-h-screen bg-dark-950 text-slate-100 selection:bg-cyber-cyan selection:text-dark-950">
 
-      {/* Interactive Custom Cursor */}
+      {/* Signature Standout Moment: System Boot Terminal Intro */}
+      <LoadingScreen />
+
+      {/* Smooth Magnetic Custom Cursor with Glow Trail (Desktop Only) */}
       <CustomCursor />
 
-      <SQLConsole />
-
-      {/* Dynamic Particle Canvas Background */}
+      {/* Subtle Atmospheric Particle Background */}
       <ParticleBackground />
 
-      {/* Fixed Navigation Bar */}
+      {/* Fixed Navigation Bar with Top Scroll Depth Progress Indicator */}
       <Navbar
         activeSection={activeSection}
-        onOpenResume={openResume}
+        onOpenResume={openResumeModal}
+        onOpenHRView={() => setHrViewOpen(true)}
       />
 
-      {/* Main Content Sections */}
+      {/* Main 7-Section Content Layout */}
       <main className="relative z-10">
 
-        {/* Hero Section */}
+        {/* 1. Home / Hero Front Page */}
         <Hero
           onOpenResume={downloadResume}
+          onOpenHRView={() => setHrViewOpen(true)}
         />
 
+        {/* 2. About Section (Narrative + Digital ID Photo + Animated Headline Stats) */}
         <About />
 
+        {/* 3. Skills (ONE Consolidated Interactive Node Graph & Evidence Section) */}
         <Skills />
 
-        <Experience />
-
+        {/* 4. Projects (Full Case Studies: Inventory & Blockchain Food Traceability) */}
         <Projects />
 
-        <ProjectDownloads />
+        {/* 5. Internship Experience (Correct Chronological Order: 2025 on Left, 2026 on Right) */}
+        <Experience />
 
-        <Articles />
-
-        <CodingProfiles />
-
+        {/* 6. Achievements (Single Source of Truth for LeetCode, NPTEL, MD Recognition & Degrees) */}
         <Achievements />
 
-        <Contact />
+        {/* Closing Engineering Philosophy Bridge */}
+        <CinematicTransition onOpenResume={downloadResume} />
+
+        {/* 7. Contact Section (Direct ATS Resume Download, One-Click Email Copy & Form) */}
+        <Contact onOpenResume={downloadResume} />
 
       </main>
 
-      {/* Footer */}
+      {/* Minimalist Terminal Footer */}
       <Footer />
+
+      {/* Floating Recruiter Quick Navigation Helper */}
+      <RecruiterHelper onOpenResume={openResumeModal} />
+
+      {/* HR Quick View Executive Modal Panel */}
+      <HRQuickViewModal
+        isOpen={hrViewOpen}
+        onClose={() => setHrViewOpen(false)}
+        onOpenResume={downloadResume}
+      />
+
+      {/* ATS-Formatted Interactive Resume Modal */}
+      <ResumeModal
+        isOpen={resumeModalOpen}
+        onClose={() => setResumeModalOpen(false)}
+      />
 
     </div>
   );

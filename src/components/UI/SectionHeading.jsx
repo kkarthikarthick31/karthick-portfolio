@@ -3,15 +3,18 @@ import { motion } from 'framer-motion';
 
 export default function SectionHeading({
   badge,
+  eyebrow,
   title,
   highlight,
   subtitle,
   center = true,
   className = '',
 }) {
+  const displayBadge = badge || eyebrow;
+
   return (
     <div className={`mb-16 ${center ? 'text-center max-w-3xl mx-auto' : 'max-w-2xl'} ${className}`}>
-      {badge && (
+      {displayBadge && (
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -20,7 +23,7 @@ export default function SectionHeading({
           className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyber-cyan/30 text-cyber-cyan text-xs font-mono font-medium tracking-wider uppercase mb-4 shadow-sm backdrop-blur-md"
         >
           <span className="w-1.5 h-1.5 rounded-full bg-cyber-cyan animate-ping" />
-          <span>{badge}</span>
+          <span>{displayBadge}</span>
         </motion.div>
       )}
 
@@ -29,7 +32,7 @@ export default function SectionHeading({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ duration: 0.6, delay: 0.1 }}
-        className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4 font-display"
+        className="text-3xl md:text-5xl font-extrabold tracking-tight text-white mb-4 font-display uppercase"
       >
         {title}{' '}
         {highlight && (
@@ -43,13 +46,13 @@ export default function SectionHeading({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: '-50px' }}
           transition={{ duration: 0.6, delay: 0.2 }}
-          className="text-base md:text-lg text-slate-400 font-normal leading-relaxed"
+          className="text-base md:text-lg text-slate-400 font-normal leading-relaxed font-sans"
         >
           {subtitle}
         </motion.p>
       )}
 
-      {/* Futuristic underline */}
+      {/* Futuristic subtle accent underline */}
       <motion.div
         initial={{ scaleX: 0 }}
         whileInView={{ scaleX: 1 }}
